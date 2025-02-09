@@ -141,25 +141,64 @@ app.post('/utilisateurs/connexion', (request, response) => {
     })
 })
 
-// mise a jour de l'utilisateur en fonction de son token
+// reinitialisation du mot de passe
 
-app.put('/utilisateurs', (request, response) => {
-    const token = request.headers['authorization'].split(' ')[1]
+app.put('/utilisateurs/newpassword', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+    const {oldPassword, newPassword} = request.body // recuperer le nouveau mot de passe dans le corps de la requete
+    const saltRound = 12
+    
+    // verification de l'existence du token
+    if(!token) {
+        return response.json({message: 'aucun token'})
+    }
 
+    // obtenir l'id utilisateur depuis le token
     jwt.verify(token, secretKey, (error, decoded) => {
         if (error) {
-            console.log(error)
+            console.log('un probleme est survenue: ', error)
         }
 
-        const id = decoded.id
+        // extraire l'id du token
+        const id = decoded.id 
 
-        const { utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone } = request.body
-        db.query('update utilisateurs set utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_adresse_email = ?, utilisateurs_mot_de_passe = ?, utilisateurs_numero_de_telephone = ? where utilisateurs_id = ?', [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone, id], (error, result) => {
+        // recherche l'utilisateur en fonction de son id
+        db.query('select * from utilisateurs where utilisateurs_id = ?', id,(error, result) => {
             if (error) {
                 console.log(error)
-            } else {
-                response.json('Values updated')
             }
+
+            if (result.length === 0) {
+                return response.json({message: 'utilisateur inconnu'})
+            }
+
+            const user = result[0]
+
+            // verifier l'ancien de mot de passe avec celui de la db
+            bcrypt.compare(oldPassword, user.utilisateurs_mot_de_passe, (error, match) => {
+                if (error) {
+                    console.log(error)
+                }
+
+                if (!match) {
+                    return response.json({message: 'ancien mot de passe ne correspond pas'})
+                }
+
+                // hacher le mot de passe et inserer le nouveau mot de passe dans la db
+                bcrypt.hash(newPassword, saltRound, (error, newHash) => {
+                    if (error) {
+                        console.log('un probleme est survenue: ', error)
+                    }
+
+                    db.query('update utilisateurs set utilisateurs_mot_de_passe = ? where utilisateurs_id = ?', [newHash, id], (error, result) => {
+                        if (error) {
+                            console.log(error)
+                        } else {
+                            response.json('mise a jour reussi')
+                        }
+                    })
+                })
+            })
         })
     })
 })
@@ -186,28 +225,6 @@ app.get('/adresse/:id', (request, response) => {
         } else {
             response.json(result)
         }
-    })
-})
-
-// mise a jour de l'adresse postal en fonction de son id
-
-app.put('/adresse', (request, response) => {
-    const token = request.headers['authorization'].split(' ')[1]
-    jwt.verify(token, secretKey, (error, decoded) => {
-        if (error) {
-            console.log(error)
-        }
-
-        const id = decoded.id
-
-        const { adresses_postales_id, adresses_postales_numero_voie, adresses_postales_nom_voie, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays } = request.body
-        db.query(`update adresses_postales set adresses_postales_id = ? adresses_postales_numero_voie = ? adresses_postales_nom_voie = ? adresses_postales_code_postal = ? adresses_postales_ville = ? adresses_postales_pays = ? where adresses_postales_id = ?`, [adresses_postales_id, adresses_postales_numero_voie, adresses_postales_nom_voie, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays, id], (error, result) => {
-            if (error) {
-                console.log(error)
-            } else {
-                response.json('Values updated')
-            }
-        })
     })
 })
 
