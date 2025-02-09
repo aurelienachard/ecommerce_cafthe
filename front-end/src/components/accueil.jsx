@@ -1,7 +1,7 @@
 const Accueil = () => {
     return (
-        <div>
-            <h1>Hello world</h1>
+        <div className="p-[24px]">
+            <h1 className="text-[32px] font-bold">Bievenue sur Caf'the.</h1>
         </div>
     )
 }
