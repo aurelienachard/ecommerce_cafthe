@@ -31,30 +31,29 @@ const Panier = () => {
 
     return (
         <div className="p-[24px]">
-            <h1 className="font-bold font-[roboto] text-[32px] border mb-[24px]">Mon panier</h1>
-
-            <div className="border p-[24px]">
-                <form>
-                    {panier.map(item => 
-                        <div key={item.id} className="flex justify-between items-center">
-                            <p>{item.nom}</p>
-                            <p>{item.prix}€</p>
-                            <p>{item.quantite}</p>
-                            <p>{item.quantiteGramme}</p>
-                            <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
-                        </div>
-                    )}
-                </form>
-            </div>
-
-            <div className="mt-[20px]">
-                <div className="flex">
-                    <p>Cout total : {calculerPrixTotal()}€</p>
+            <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
+                <div className="border p-[24px]">
+                    <form>
+                        {panier.map(item => 
+                            <div key={item.id} className="flex justify-between items-center">
+                                <p>{item.nom}</p>
+                                <p>{item.prix}€</p>
+                                <p>{item.quantite}</p>
+                                <p>{item.quantiteGramme}</p>
+                                <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
+                            </div>
+                        )}
+                    </form>
                 </div>
 
-                <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
-            </div>
+                <div className="mt-[20px]">
+                    <div className="flex">
+                        <p>Cout total : {calculerPrixTotal()}€</p>
+                    </div>
+
+                    <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                    <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                </div>
         </div>
     )
 }
