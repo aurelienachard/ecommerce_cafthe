@@ -9,6 +9,7 @@ require('dotenv').config()
 const secretKey = process.env.SECRET_KEY
 
 app.use(express.json())
+app.use(express.static('dist'))
 app.use(cors())
 
 // connexion a la db
