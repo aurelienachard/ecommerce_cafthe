@@ -8,6 +8,7 @@ import Inscription from './components/inscription'
 import Connexion from './components/connexion'
 import Profile from "./components/profile"
 import Panier from "./components/panier"
+import Fortgetpwd from './components/forgetpwd'
 
 import './style.css'
 
@@ -55,6 +56,7 @@ const App = () => {
         <Route path="/inscription" element={<Inscription />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/panier" element={<Panier />}></Route>
+        <Route path="/fortgetpwd" element={<Fortgetpwd />}></Route>
       </Routes>
     </Router>
   )
