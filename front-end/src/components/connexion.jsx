@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // on utilise setUser en parametre de la fonction pour mettre a jour 
 
-const Connexion = ({setUser}) => {
+const Connexion = () => {
     const [utilisateurs_adresse_email, set_utilisateurs_adresse_email] = useState('')
     const [utilisateurs_mot_de_passe, set_utilisateurs_mot_de_passe] = useState('')
     const [message, setMessage] = useState('')
@@ -34,7 +34,7 @@ const Connexion = ({setUser}) => {
         .then((response) => {
             setMessage('Connexion reussi')
             localStorage.setItem('token', response.data.token)
-            setUser(true) // on defini setUser sur true
+            window.location.reload()
             navigate('/profile')
         })
         .catch((error) => {
@@ -45,27 +45,32 @@ const Connexion = ({setUser}) => {
 
     return (
         <div className="flex flex-col items-center p-[24px]">
-            <h1 className="text-[32px] font-bold py-[16px]">Connexion</h1>
+            <div className="bg-warm-neutral border p-[24px]">
 
+            <h1 className="text-[32px] font-[Roboto] mb-[24px] font-bold">Connexion</h1>
+            
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-col">
-                    <label>Adresse Email</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="mail" value={utilisateurs_adresse_email} onChange={handleChangeEmail} required/>
+                    <label className="text-[16px]">Adresse Email</label>
+                    <input placeholder="Adresse Email" className="border bg-white p-[16px] mt-[10px] mb-[20px] w-150" type="mail" value={utilisateurs_adresse_email} onChange={handleChangeEmail} required/>
                 </div>
 
                 <div className="flex flex-col">
-                    <label>Mot de passe</label>
-                    <input className="border p-[16px] mt-[20px] w-150" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangePassword} required/>
+                    <label className="text-[16px]">Mot de passe</label>
+                    <input placeholder="Mot de passe" className="border bg-white p-[16px] mt-[10px] w-150" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangePassword} required/>
                 </div>
 
-                <button className="bg-green-950 p-[16px] mt-[20px] text-white w-150">Se connecter</button>
+                <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150">Se connecter</button>
                 <p>{message}</p>
             </form>
 
             <p className="mt-[20px] w-150">
                 Pas encore inscrit ?
-                <Link to="/inscription" className="text-green-700"> Inscrivez-vous</Link>
+                <Link to="/inscription" className="text-green-700 text-[16px]"> Inscrivez-vous</Link>
             </p>
+            </div>
+
+
         </div>
     )    
 }

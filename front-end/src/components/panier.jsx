@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Panier = () => {
     const [panier, setPanier] = useState([])
+    const navigate = useNavigate()
     
     useEffect(() => {
         const cart = localStorage.getItem('cart')
@@ -19,27 +21,40 @@ const Panier = () => {
         localStorage.setItem("cart", JSON.stringify(updatedPanier))
     }
 
+    const redirectPage = () => {
+        navigate('/produits')
+    }
+
     const calculerPrixTotal = () => {
         return panier.reduce((total, item) => total + item.prix * item.quantite, 0)
     }
 
     return (
-        <div className="flex flex-col p-[24px]">
-            <h1 className="text-[32px] font-bold p-[16px]">Panier</h1>
-            <form>
-                {panier.map(item => 
-                    <div className="border flex items-center p-[16px] justify-between mb-[20px]">
-                        <p className="max-w-64 w-[300px]">{item.nom}</p>
-                        <p>{item.prix}€</p>
-                        <p>{item.quantite}</p>
-                        <p>{item.quantiteGramme}</p>
-                        <button type="button" className="bg-red-700 text-white p-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
-                    </div>
-                )}
-            </form>
+        <div className="p-[24px]">
+            <h1 className="font-bold font-[roboto] text-[32px] border mb-[24px]">Mon panier</h1>
 
-            <h2 className="p-[16px] font-bold text-[24px]">Total : {calculerPrixTotal()}€</h2>
-            <button type="submit" className="bg-green-950 text-white p-[16px] mt-[24px]">Passer Commande</button>
+            <div className="border p-[24px]">
+                <form>
+                    {panier.map(item => 
+                        <div key={item.id} className="flex justify-between items-center">
+                            <p>{item.nom}</p>
+                            <p>{item.prix}€</p>
+                            <p>{item.quantite}</p>
+                            <p>{item.quantiteGramme}</p>
+                            <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
+                        </div>
+                    )}
+                </form>
+            </div>
+
+            <div className="mt-[20px]">
+                <div className="flex">
+                    <p>Cout total : {calculerPrixTotal()}€</p>
+                </div>
+
+                <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+            </div>
         </div>
     )
 }

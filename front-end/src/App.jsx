@@ -15,8 +15,8 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token')
-    // on recupe le token
+    const token = localStorage.getItem('token')
+    // on recupere le token
     if (token) {
       setUser(true)
     }
@@ -29,20 +29,19 @@ const App = () => {
   
   return (
     <Router>
-
-      <div className="flex bg-green-600 justify-center p-[20px]">
-        <Link className="p-[16px] m-[8px] hover:text-white" to="/">Accueil</Link>
-        <Link className="p-[16px] m-[8px] hover:text-white" to="/produits">Produits</Link>
-        <Link className="p-[16px] m-[8px] hover:text-white" to="/panier">Panier</Link>
+      <div className="flex bg-green-principale justify-center">
+        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/">Accueil</Link>
+        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/produits">Produits</Link>
+        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/panier">Panier</Link>
         {user ? (
           <>
-            <Link className="p-[16px] m-[8px] hover:text-white" to="/profile">Profile</Link>
-            <button className="bg-green-900 hover:bg-green-950 text-white p-[16px]" onClick={handleDeconnexion}>Deconnexion</button>
+            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/profile">Profile</Link>
+            <button className="border mx-[24px] my-[24px] bg-green-principale text-white py-[12px] px-[16px]" onClick={handleDeconnexion}>Deconnexion</button>
           </>
         ) : (
           <>
-            <Link className="p-[16px] m-[8px] hover:text-white" to="/connexion">Connexion</Link>
-            <Link className="p-[16px] m-[8px] hover:text-white" to="/inscription">Inscription</Link>
+            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/connexion">Connexion</Link>
+            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/inscription">Inscription</Link>
           </>
         )}
       </div>
@@ -52,7 +51,7 @@ const App = () => {
         <Route path="/produits" element={<Catalogue />}></Route>
         <Route path="/produits/:produit_id" element={<Produit />}></Route>
         {/* on definit le props avec setUser */}
-        <Route path="/connexion" element={<Connexion setUser={setUser}/>}></Route>
+        <Route path="/connexion" element={<Connexion />}></Route>
         <Route path="/inscription" element={<Inscription />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/panier" element={<Panier />}></Route>

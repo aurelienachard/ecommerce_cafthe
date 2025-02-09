@@ -50,38 +50,39 @@ const Produit = () => {
     }
 
     return (
-        <div className="flex flex-col p-[24px]">
+        <div className="p-[24px]">
             {data.map((produit) => (
                 <div key={produit.produit_id}>
-                    <h1 className="p-[16px] border text-[32px] font-bold w-150">{produit.produit_nom}</h1>
-                    <p className="p-[16px] border flex mt-[20px] w-150 pt-[16px]">Stock : {produit.produit_quantite}</p>
-                    <p className="p-[16px] border mt-[20px] w-150 pt-[16px]">Prix : {produit.produit_prix}</p>
-                    <p className="p-[16px] border mt-[20px] w-150 pt-[16px]">Description : {produit.produit_description}</p>
+                    <h1 className="font-bold font-[Roboto] text-[24px] mb-[20px]">{produit.produit_nom}</h1>
+                    <p className="border pl-[12px] py-[12px] mb-[20px]">Stock : {produit.produit_quantite}</p>
+                    <p className="border pl-[12px] py-[12px] mb-[20px]">Prix : {produit.produit_prix}$</p>
+                    <p className="border pl-[12px] py-[12px] mb-[20px]">Description : {produit.produit_description}</p>
 
                     {produit.produit_categorie === 'cafe' || produit.produit_categorie === 'the' ? (
-                        <div className="p-[16px] flex flex-col w-150 border mt-[20px]">
+                        <div className="mb-[20px]">
+                            <p className="mb-[20px] font-bold">Choisir le nombre de grammes :</p>
+                            <div className="flex flex-col">
+                                <label className="border py-[12px] mb-[20px]">
+                                    <input type="radio" className="ml-[12px]" value="100g" checked={quantiteGramme === '100g'} onChange={handleQuantiteGramme}/> 100g
+                                </label>
 
-                            <p className="pb-[20px]">Choisir le nombre de grammes :</p>
+                                <label className="border py-[12px] mb-[20px]">
+                                    <input type="radio" className="ml-[12px]" value="200g" checked={quantiteGramme === '200g'} onChange={handleQuantiteGramme}/> 200g
+                                </label>
 
-                            <label>
-                                <input type="radio" value="100g" checked={quantiteGramme === '100g'} onChange={handleQuantiteGramme}/> 100g
-                            </label>
-
-                            <label>
-                                <input className="p-[16px] mt-[20px]" type="radio" value="200g" checked={quantiteGramme === '200g'} onChange={handleQuantiteGramme}/> 200g
-                            </label>
-
-                            <label>
-                                <input className=" p-[16px] mt-[20px]" type="radio" value="300g" checked={quantiteGramme === '300g'} onChange={handleQuantiteGramme}/> 300g
-                            </label>
+                                <label className="border py-[12px]">
+                                    <input type="radio" className="ml-[12px]" value="300g" checked={quantiteGramme === '300g'} onChange={handleQuantiteGramme}/> 300g
+                                </label>
+                            </div>
                         </div>
                     ) : null}
 
-                    <div className="border mt-[20px] p-[16px] w-150">
-                        Choisir la quantite : <input className="border p-[16px]" type="number" value={quantite} min="1" max={produit.produit_quantite} onChange={handleQuantite}/>
+                    <div>
+                        <p className="font-bold mb-[20px]">Choisir la quantite : </p>
+                        <input className="border" type="number" value={quantite} min="1" max={produit.produit_quantite} onChange={handleQuantite}/>
                     </div>
 
-                    <button className="border bg-green-950 mt-[20px] text-white p-[16px]" onClick={() => ajouterProduit(produit)}>Ajouter au panier</button>
+                    <button className="font-[Inter] bg-green-principale text-white py-[12px] px-[16px] mt-[10px]" onClick={() => ajouterProduit(produit)}>Ajouter au panier</button>
                 </div>
             ))}
         </div>

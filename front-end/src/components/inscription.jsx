@@ -51,41 +51,43 @@ const Inscription = () => {
 
     return (
         <div className="flex flex-col items-center p-[24px]">
-            <h1 className="text-[32px] font-bold py-[16px]">Inscription</h1>
+            <div className="bg-warm-neutral border p-[24px]">
+                <h1 className="text-[32px] font-[Roboto] mb-[24px] font-bold">Inscription</h1>
 
-            <form onSubmit={handleSubmit}>
-                <div className="flex flex-col">
-                    <label>Nom</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="flex flex-col">
+                        <label>Nom</label>
+                        <input placeholder="Nom" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
+                    </div>
 
-                <div className="flex flex-col">
-                    <label>Prenom</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="mt-[20px]">Prenom</label>
+                        <input placeholder="Prenom" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
+                    </div>
 
-                <div className="flex flex-col">
-                    <label>Adresse Email</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="mt-[20px]">Adresse Email</label>
+                        <input placeholder="Adresse Email" className="bg-white border p-[16px] mt-[10px] w-150" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
+                    </div>
 
-                <div className="flex flex-col">
-                    <label>Mot de passe</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="mt-[20px]">Mot de passe</label>
+                        <input placeholder="Mot de passe" className="bg-white border p-[16px] mt-[10px] w-150" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
+                    </div>
 
-                <div className="flex flex-col">
-                    <label>Numero de telephone</label>
-                    <input className="border p-[16px] my-[20px] w-150" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="mt-[20px]">Numero de telephone</label>
+                        <input placeholder="Numero de telephone" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
+                    </div>
 
-                <button className="bg-green-950 p-[16px] mt-[20px] text-white w-150" type="submit">S'inscrire</button>
+                    <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150" type="submit">S'inscrire</button>
 
-                <p className="mt-[20px] w-150">
-                    Deja inscrit ?
-                    <Link to="/connexion" className="text-green-700"> Connectez-vous</Link>
-                </p>
-            </form>
+                    <p className="mt-[20px] w-150">
+                        Deja inscrit ?
+                        <Link to="/connexion" className="text-green-700"> Connectez-vous</Link>
+                    </p>
+                </form>
+            </div>
         </div>
     )
 }
