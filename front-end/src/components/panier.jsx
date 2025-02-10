@@ -13,7 +13,7 @@ const Panier = () => {
     }, [])
 
     const supprimerArticle = (id) => {
-        // on creer un nouveau tableau sans l'objet a supprimer
+        // on creer un nouveau tableau sans l'objet supprimer
         const updatedPanier = panier.filter(item => item.id !== id)
         // on met a jour le panier avec la variable ci-dessus
         setPanier(updatedPanier)
@@ -32,7 +32,7 @@ const Panier = () => {
     return (
         <div className="p-[24px]">
             <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
-                <div className="border p-[24px]">
+                <div className="p-[24px]">
                     <form>
                         {panier.map(item => 
                             <div key={item.id} className="flex justify-between items-center">

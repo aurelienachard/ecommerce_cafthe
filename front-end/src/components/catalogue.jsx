@@ -22,11 +22,6 @@ const Catalogue = () => {
         setSearch(event.target.value)
     }
 
-    const handleCategory = (category) => {
-        // met a jour l'etat de selectCategory en fonction du bouton clique et du parametre category
-        setSelectCatagory(category)
-    }
-
     const filteredProducts = data.filter((produit) => 
         produit.produit_nom.toLowerCase().includes(search.toLowerCase()) && (selectCategory === '' || produit.produit_categorie === selectCategory)
         /*
@@ -34,6 +29,11 @@ const Catalogue = () => {
             on verifie la categorie du produit
         */
     )
+
+    const handleCategory = (category) => {
+        // met a jour l'etat de selectCategory en fonction du bouton clique et du parametre category
+        setSelectCatagory(category)
+    }
 
     return (
         <div className="flex flex-col items-center p-[24px]">
