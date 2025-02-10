@@ -13,6 +13,7 @@ import CGU from './components/cgu'
 import CGV from './components/cgv'
 import PostalConfig from './components/postalconfig'
 import ProfileConfig from './components/profileconfig'
+import ProfilCommande from './components/profileCommande'
 
 import './style.css'
 
@@ -62,8 +63,9 @@ const App = () => {
         <Route path="/fortgetpwd" element={<Fortgetpwd />}></Route>
         <Route path="/CGU" element={<CGU />}></Route>
         <Route path="/CGV" element={<CGV />}></Route>
-        <Route path='/postalconfig' element={<PostalConfig />}></Route>
-        <Route path='/profileconfig' element={<ProfileConfig />}></Route>
+        <Route path="/postalconfig" element={<PostalConfig />}></Route>
+        <Route path="/profileconfig" element={<ProfileConfig />}></Route>
+        <Route path="/commande" element={<ProfilCommande />}></Route>
       </Routes>
       
       <footer className="bg-gray-700 flex justify-center items-center">
