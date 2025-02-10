@@ -17,9 +17,13 @@ const Fortgetpwd = () => {
             newPassword
         }
 
+        // utilisation d'axios avec le verb put pour mettre a jour des informations
+        // data contient les donnees a envoyer au serveur
+
         axios.put('http://localhost:3001/utilisateurs/newpassword', data, {
             headers: {
                 'Authorization' : `Bearer ${token}`
+                // le headers contient le token
             }
         })
         .then((response) => {

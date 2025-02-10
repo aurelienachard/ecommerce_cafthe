@@ -9,6 +9,7 @@ const Profile = () => {
                 <Link to="/fortgetpwd" className=" mt-[16px] text-green-principale">Modifier son mot de passe</Link>
                 <Link to="/profileconfig" className=" mt-[16px] text-green-principale">Modifier son profil</Link>
                 <Link to="/postalconfig" className=" mt-[16px] text-green-principale">Modifier son adresse postal</Link>
+                <Link to="/commande" className="mt-[16px] text-green-principale">Voir les commandes</Link>
             </div>
         </div>
     )

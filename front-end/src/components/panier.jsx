@@ -32,10 +32,10 @@ const Panier = () => {
     return (
         <div className="p-[24px]">
             <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
-                <div className="p-[24px]">
+                <div>
                     <form>
                         {panier.map(item => 
-                            <div key={item.id} className="flex justify-between items-center">
+                            <div key={item.id} className="flex justify-between items-center border p-[16px]">
                                 <p>{item.nom}</p>
                                 <p>{item.prix}€</p>
                                 <p>{item.quantite}</p>
