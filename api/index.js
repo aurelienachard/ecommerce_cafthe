@@ -145,21 +145,38 @@ app.post('/utilisateurs/connexion', (request, response) => {
 
 app.put('/utilisateurs/newpassword', (request, response) => {
     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
-    const {oldPassword, newPassword} = request.body // recuperer le nouveau mot de passe dans le corps de la requete
-    const saltRound = 12
+    /*
+        en detail:
+
+        request.headers['authorization'] --> on recupere le token via authorization
+        c'est ici que l'on stocke le JWT
+        cette ligne accede a "Bearer <token>"
+
+        premiere partie: c'est le type d'authentification
+        seconde partie: c'est le token jwt
     
-    // verification de l'existence du token
+        .split(' ') --> on divise la chaine de caractere en tableau
+        
+        [1] --> on accde au deuxieme element du tableau resulat de split, donc le token
+    */
+    
+    const {oldPassword, newPassword} = request.body // recuperer l'ancien et le nouveau mot de passe dans le corps de la requete
+    const saltRound = 12
+
+    // on verifie la presence du token dans le header
     if(!token) {
         return response.json({message: 'aucun token'})
     }
 
-    // obtenir l'id utilisateur depuis le token
+    // on obtient l'id de l'utilisateur en fonction du token
+
     jwt.verify(token, secretKey, (error, decoded) => {
+        // on verifie que le token est bien valide
         if (error) {
             console.log('un probleme est survenue: ', error)
         }
 
-        // extraire l'id du token
+        // on extrait l'id du token
         const id = decoded.id 
 
         // recherche l'utilisateur en fonction de son id
@@ -172,6 +189,7 @@ app.put('/utilisateurs/newpassword', (request, response) => {
                 return response.json({message: 'utilisateur inconnu'})
             }
 
+            // on stocke le premiere resultat donc l'utilisateur dans une variable
             const user = result[0]
 
             // verifier l'ancien de mot de passe avec celui de la db
