@@ -9,6 +9,10 @@ import Connexion from './components/connexion'
 import Profile from "./components/profile"
 import Panier from "./components/panier"
 import Fortgetpwd from './components/forgetpwd'
+import CGU from './components/cgu'
+import CGV from './components/cgv'
+import PostalConfig from './components/postalconfig'
+import ProfileConfig from './components/profileconfig'
 
 import './style.css'
 
@@ -27,7 +31,7 @@ const App = () => {
     localStorage.removeItem('token')
     setUser(false)
   }
-  
+
   return (
     <Router>
       <div className="flex bg-green-principale justify-center">
@@ -51,13 +55,23 @@ const App = () => {
         <Route path="/" element={<Accueil />}></Route>
         <Route path="/produits" element={<Catalogue />}></Route>
         <Route path="/produits/:produit_id" element={<Produit />}></Route>
-        {/* on definit le props avec setUser */}
         <Route path="/connexion" element={<Connexion />}></Route>
         <Route path="/inscription" element={<Inscription />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/panier" element={<Panier />}></Route>
         <Route path="/fortgetpwd" element={<Fortgetpwd />}></Route>
+        <Route path="/CGU" element={<CGU />}></Route>
+        <Route path="/CGV" element={<CGV />}></Route>
+        <Route path='/postalconfig' element={<PostalConfig />}></Route>
+        <Route path='/profileconfig' element={<ProfileConfig />}></Route>
       </Routes>
+      
+      <footer className="bg-gray-700 flex justify-center items-center">
+        <Link to="/CGU" className="text-white">CGU</Link>
+        <Link to="/CGV" className="text-white ml-[20px]">CGV</Link>
+        <p className="text-white p-[20px]">&copy; 2025 Cafthe - Tous droits réservés</p>
+      </footer>
+
     </Router>
   )
 }
