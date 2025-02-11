@@ -10,8 +10,12 @@ require('dotenv').config()
 const secretKey = process.env.SECRET_KEY
 
 app.use(express.json())
-app.use(express.static('dist'))
 app.use(cors())
+app.use(express.static('dist'))
+
+// const YOUR_DOMAIN = process.env.DOMAIN_REACT
+
+// initialisation du paiement
 
 // connexion a la db
 
@@ -29,18 +33,6 @@ db.connect((error) => {
         console.log('connected');
     }
 })
-
-// // routes pour initier un paiement
-
-// app.post('/paiement', (request, response) => {
-//     const items = request.body.items // recuper les articles
-
-//     stripe.checkout.sessions.create({
-//         line_items: items, // on definit les articles que l'utilisateur veut acheter
-//         mode: 'payment', // c'est le moyen de paiement
-        
-//     })
-// })
 
 // afficher tous les produits
 
@@ -154,7 +146,7 @@ app.post('/utilisateurs/connexion', (request, response) => {
     })
 })
 
-// reinitialisation du mot de passe
+// reinitialisation du mot de passe avec le token
 
 app.put('/utilisateurs/newpassword', (request, response) => {
     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
@@ -237,30 +229,36 @@ app.put('/utilisateurs/newpassword', (request, response) => {
 
 // modification du profil
 
-// app.put('/utilisateurs/profil', (request, response) => {
-//     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
-//     const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
+app.put('/utilisateurs/modificationProfil', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+    const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
 
-//     // on verifie la presence du token dans le header
-//     if(!token) {
-//         return response.json({message: 'aucun token'})
-//     }
+    // on verifie la presence du token dans le header
+    if(!token) {
+        return response.json({message: 'aucun token'})
+    }
 
-//     // on obtient l'id de l'utilisateur en fonction du token
+    // on obtient l'id de l'utilisateur en fonction du token
 
-//     jwt.verify(token, secretKey, (error, decoded) => {
-//         // on verifie que le token est bien valide
-//         if (error) {
-//             console.log('un probleme est survenue: ', error)
-//         }
+    jwt.verify(token, secretKey, (error, decoded) => {
+        // on verifie que le token est bien valide
+        if (error) {
+            console.log(error)
+        }
 
-//         // on extrait l'id du token
-//         const id = decoded.id
+        // on extrait l'id du token
+        const id = decoded.id
 
-
-
-//     })  
-// })
+        db.query("UPDATE utilisateurs SET utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_adresse_email = ?, utilisateurs_mot_de_passe = ?, utilisateurs_numero_de_telephone = ? WHERE utilisateurs_id = ?", [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone, id], (error, result) => {
+            if (error) {
+                console.log(error)
+            } else {
+                const newToken = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
+                return response.json({ message: 'Mot de passe mis à jour avec succès', token: newToken })
+            }
+        });
+    })  
+})
 
 // afficher les adresses postals
 
