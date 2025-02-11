@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from 'axios'
 
 const ProfileConfig = () => {
     const [utilisateurs_nom, set_utilisateurs_nom] = useState('')
@@ -6,9 +7,33 @@ const ProfileConfig = () => {
     const [utilisateurs_adresse_email, set_utilisateurs_adresse_email] = useState('')
     const [utilisateurs_mot_de_passe, set_utilisateurs_mot_de_passe] = useState('')
     const [utilisateurs_numero_de_telephone, set_utilisateurs_numero_de_telephone] = useState('')
-    
+    const [message, setMessage] = useState('')
+
     const handleSubmit = (event) => {
         event.preventDefault()
+        const token = localStorage.getItem('token')
+
+        const data = {
+            utilisateurs_nom,
+            utilisateurs_prenom,
+            utilisateurs_adresse_email,
+            utilisateurs_mot_de_passe,
+            utilisateurs_numero_de_telephone,
+        }
+
+        axios.put('http://localhost:3001/utilisateurs/modificationProfil', data, {
+            headers: {
+                'Authorization' : `Bearer ${token}`
+            }
+        })
+        .then((response) => {
+            setMessage(response.data)
+            setMessage('profil mise a jour')
+        })
+        .catch((error) => {
+            console.log(error)
+            setMessage('profil non mise a jour')
+        })
     }
 
     const handleChangeNom = (event) => {
@@ -63,6 +88,8 @@ const ProfileConfig = () => {
                     </div>
 
                     <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150">Mettre a jour</button>
+                
+                    <p>{message}</p>
                 </form>
             </div>
         </div>
