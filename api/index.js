@@ -4,6 +4,7 @@ const cors = require('cors')
 const mysql = require('mysql2')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 require('dotenv').config()
 const secretKey = process.env.SECRET_KEY
@@ -28,6 +29,18 @@ db.connect((error) => {
         console.log('connected');
     }
 })
+
+// // routes pour initier un paiement
+
+// app.post('/paiement', (request, response) => {
+//     const items = request.body.items // recuper les articles
+
+//     stripe.checkout.sessions.create({
+//         line_items: items, // on definit les articles que l'utilisateur veut acheter
+//         mode: 'payment', // c'est le moyen de paiement
+        
+//     })
+// })
 
 // afficher tous les produits
 
@@ -212,7 +225,8 @@ app.put('/utilisateurs/newpassword', (request, response) => {
                         if (error) {
                             console.log(error)
                         } else {
-                            response.json('mise a jour reussi')
+                            const newToken = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
+                            return response.json({ message: 'Mot de passe mis à jour avec succès', token: newToken })
                         }
                     })
                 })
@@ -220,6 +234,33 @@ app.put('/utilisateurs/newpassword', (request, response) => {
         })
     })
 })
+
+// modification du profil
+
+// app.put('/utilisateurs/profil', (request, response) => {
+//     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+//     const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
+
+//     // on verifie la presence du token dans le header
+//     if(!token) {
+//         return response.json({message: 'aucun token'})
+//     }
+
+//     // on obtient l'id de l'utilisateur en fonction du token
+
+//     jwt.verify(token, secretKey, (error, decoded) => {
+//         // on verifie que le token est bien valide
+//         if (error) {
+//             console.log('un probleme est survenue: ', error)
+//         }
+
+//         // on extrait l'id du token
+//         const id = decoded.id
+
+
+
+//     })  
+// })
 
 // afficher les adresses postals
 
