@@ -14,6 +14,7 @@ import CGV from './components/cgv'
 import PostalConfig from './components/postalconfig'
 import ProfileConfig from './components/profileconfig'
 import ProfilCommande from './components/profileCommande'
+import Paiement from './components/paiement'
 
 import './style.css'
 
@@ -66,6 +67,7 @@ const App = () => {
         <Route path="/postalconfig" element={<PostalConfig />}></Route>
         <Route path="/profileconfig" element={<ProfileConfig />}></Route>
         <Route path="/commande" element={<ProfilCommande />}></Route>
+        <Route path="/paiement" element={<Paiement />}></Route>
       </Routes>
       
       <footer className="bg-gray-700 flex justify-center items-center">
@@ -73,7 +75,6 @@ const App = () => {
         <Link to="/CGV" className="text-white ml-[20px]">CGV</Link>
         <p className="text-white p-[20px]">&copy; 2025 Cafthe - Tous droits réservés</p>
       </footer>
-
     </Router>
   )
 }
