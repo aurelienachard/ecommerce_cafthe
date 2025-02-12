@@ -4,7 +4,7 @@ const cors = require('cors')
 const mysql = require('mysql2')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) // importation de stripe
 
 require('dotenv').config()
 const secretKey = process.env.SECRET_KEY
@@ -13,9 +13,33 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static('dist'))
 
-// const YOUR_DOMAIN = process.env.DOMAIN_REACT
+const YOUR_DOMAIN = process.env.DOMAIN_REACT
 
-// initialisation du paiement
+// on creait une session de paiement stripe
+app.post('/create-checkout-session', (request, response) => {
+    const cart = request.body.cart;
+
+    // on mappe les donnees a ce que stripe attend
+    const line_items = cart.map(item => ({
+        price_data: {
+            currency: 'eur', // devise en euro
+            product_data: {
+                name: item.nom, // le nom du produit
+            },
+            unit_amount: item.prix * 100, // on multiplie par 100 parce que stripe attend ce format
+        },
+        quantity: item.quantite, // on recupere la quantite d'articles
+    }))
+
+    const session = stripe.checkout.sessions.create({
+        ui_mode: 'embedded', // l'interface de stripe sera directement dans votre page
+        line_items: line_items, // liste les produits dans le panier
+        mode: 'payment', // ceci est un paiement unique
+        return_url: `${YOUR_DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`
+    })
+
+    response.send({id: session.id})
+})
 
 // connexion a la db
 
