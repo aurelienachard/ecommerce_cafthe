@@ -1,23 +1,26 @@
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const mysql = require('mysql2')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) // importation de stripe
-
-require('dotenv').config()
-const secretKey = process.env.SECRET_KEY
 
 app.use(express.json())
 app.use(cors())
-app.use(express.static('dist'))
+// app.use(express.static('dist'))
 
+// assigner les valeurs d'environnements a des variables
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const YOUR_DOMAIN = process.env.DOMAIN_REACT
+const secretKey = process.env.SECRET_KEY
 
-// on creait une session de paiement stripe
+// route pour la creation d'une session stripe
+
 app.post('/create-checkout-session', (request, response) => {
-    const cart = request.body.cart;
+    const cart = request.body.cart; // on recupere le panier
 
     // on mappe les donnees a ce que stripe attend
     const line_items = cart.map(item => ({
@@ -26,19 +29,24 @@ app.post('/create-checkout-session', (request, response) => {
             product_data: {
                 name: item.nom, // le nom du produit
             },
-            unit_amount: item.prix * 100, // on multiplie par 100 parce que stripe attend ce format
+            unit_amount: Math.round(item.prix * 100), // on multiplie par 100 parce que stripe attend ce format
         },
         quantity: item.quantite, // on recupere la quantite d'articles
     }))
 
-    const session = stripe.checkout.sessions.create({
-        ui_mode: 'embedded', // l'interface de stripe sera directement dans votre page
+    // creation d'une session stripe
+    stripe.checkout.sessions.create({
+        ui_mode: 'embedded', // l'interface de stripe sera directement dans notre page
         line_items: line_items, // liste les produits dans le panier
         mode: 'payment', // ceci est un paiement unique
-        return_url: `${YOUR_DOMAIN}/return?session_id={CHECKOUT_SESSION_ID}`
+        // The URL of your payment completion page
+        return_url: `${YOUR_DOMAIN}`, // redirection vers la page une fois le paiement reussi
+        payment_method_types: ['card'], // on defini les methodes de paiement
+    }).then(session => {
+        response.json({id: session.id}) // id de la session
+    }).catch(error => {
+        response.json({error: 'une erreur est survenue'})
     })
-
-    response.send({id: session.id})
 })
 
 // connexion a la db
@@ -114,7 +122,6 @@ app.post('/utilisateurs/inscription', (request, response) => {
     const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
     const saltRound = 12
 
-    // ajout aleatoire de donnees a un mot de passe
     bcrypt.genSalt(saltRound, (error, salt) => {
         if (error) {
             console.log(error)
@@ -164,6 +171,7 @@ app.post('/utilisateurs/connexion', (request, response) => {
             }
             
             const token = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
+
             console.log('Generated Token:', token)
             return response.json({ token })
         })
@@ -318,4 +326,5 @@ app.get('/', (request, response) => {
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+  console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY)
 })
