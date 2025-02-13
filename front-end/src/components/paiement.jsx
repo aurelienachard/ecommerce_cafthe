@@ -1,7 +1,7 @@
 const Paiement = () => {
     return (
         <div>
-            <h1>mdr</h1>
+            <p>hello</p>
         </div>
     )
 }

@@ -12,6 +12,10 @@ const Panier = () => {
         }
     }, [])
 
+    const passerCommande = () => {
+        navigate('/paiement')
+    }
+
     const supprimerArticle = (id) => {
         // on creer un nouveau tableau sans l'objet supprimer
         const updatedPanier = panier.filter(item => item.id !== id)
@@ -52,7 +56,7 @@ const Panier = () => {
                     </div>
 
                     <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                    <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                    <button onClick={passerCommande} type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
                 </div>
         </div>
     )
