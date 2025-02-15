@@ -16,16 +16,22 @@ const Panier = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        axios.post('http://localhost:3001/create-checkout-session', {
+        const cart = panier // on recupere les donnees du panier et on stocke dans une variable
+
+        axios.post('http://localhost:3001/create-checkout-session', {cart}, {
             headers: {
                 'Content-type' : 'application/json' 
             }
         })
         .then((response) => {
-            console.log(response)
+            // on redirige vers la page stripe
+            if (response.data.url) { // si on a une reponse, on redirige vers cette url
+                // obtenir l'adresse de la page actuelle (URL) et pour rediriger le navigateur vers une nouvelle page
+                window.location.href = response.data.url;
+            }
         })
         .catch((error) => {
-            console.log(error)
+            console.log("URL de redirection non trouvée dans la réponse", error)
         })
     }
 
@@ -77,57 +83,55 @@ const Panier = () => {
     return (
         <div className="min-h-screen p-[24px]">
             <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
+                <div>
+                    {panier.length === 0 ? (
+                            <>
+                                <p>le panier est vide</p>
+                            </>
+                        ) : (
+                            <>
+                                <form onSubmit={handleSubmit}>
+                                    {panier.map(item => 
+                                        <div key={item.id} className="flex justify-between items-center border p-[16px]">
+                                            <p>{item.nom}</p>
+                                            <p>{item.prix}€</p>
 
-            {panier.length === 0 ? (
-                <p>Votre panier est vide</p>
-            ) : (
-                <>
-                    <div>
-                        <form onSubmit={handleSubmit}>
-                            {panier.map(item => 
-                                <div key={item.id} className="flex justify-between items-center border p-[16px]">
-                                    <p>{item.nom}</p>
-                                    <p>{item.prix}€</p>
+                                            <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => diminuerArticle(item.id)}>-</button>
+                                            <p>{item.quantite}</p>
+                                            <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => augmenterArticle(item.id)}>+</button>
 
-                                    <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => diminuerArticle(item.id)}>-</button>
-                                    <p>{item.quantite}</p>
-                                    <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => augmenterArticle(item.id)}>+</button>
+                                            <p>{item.quantiteGramme}</p>
+                                            <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
+                                        </div>
+                                    )}
 
-                                    <p>{item.quantiteGramme}</p>
-                                    <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
-                                </div>
-                            )}
-                        </form>
-                    </div>
+                                    <div className="mt-[20px]">
+                                        <div className="flex">
+                                            <p>Cout total : {calculerPrixTotal()}€</p>
+                                        </div>
+                                    </div>
 
-                    <div className="mt-[20px]">
-                        <div className="flex">
-                            <p>Cout total : {calculerPrixTotal()}€</p>
-                        </div>
-                    </div>
-                    
-                    {/* debut de verification du token */}
+                                    {token ? (
+                                        <>
+                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                                            <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="border p-[10px] mt-[10px] mb-[10px]">
+                                                <h2>Tu dois te connecter pour passer commande</h2>
+                                                <p>Connecte toi via ce bouton</p>
+                                                <button onClick={redirectConnexion} className="border bg-blue-500 py-[12px] px-[16px] mt-[10px] text-white">Se connecter</button>
+                                            </div>
 
-                    {token ? (
-                        <>
-                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                            <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
-                        </>
-                    ) : (
-                        <>
-                            <div className="border p-[10px] mt-[10px] mb-[10px]">
-                                <h2>Tu dois te connecter pour passer commande</h2>
-                                <p>Connecte toi via ce bouton</p>
-                                <button onClick={redirectConnexion} className="border bg-blue-500 py-[12px] px-[16px] mt-[10px] text-white">Se connecter</button>
-                            </div>
-
-                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                        </>
+                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                                        </>
+                                    )}
+                                </form>
+                            </>
                     )}
 
-                    {/* fin de verification du token */}
-                </>
-            )} 
+                </div>
         </div>
     )
 }
