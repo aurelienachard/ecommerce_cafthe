@@ -17,6 +17,23 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const YOUR_DOMAIN = process.env.DOMAIN_REACT
 const secretKey = process.env.SECRET_KEY
 
+// connexion a la db
+
+const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+})
+
+db.connect((error) => {
+    if (error) {
+        console.error("Erreur de connexion Mysql : ", error)
+    } else {
+        console.log('connected');
+    }
+})
+
 // route pour la creation d'une session stripe
 
 app.post('/create-checkout-session', (request, response) => {
@@ -47,23 +64,6 @@ app.post('/create-checkout-session', (request, response) => {
     }).catch(error => {
         response.json({error: 'une erreur est survenue'})
     })
-})
-
-// connexion a la db
-
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-})
-
-db.connect((error) => {
-    if (error) {
-        console.error("Erreur de connexion Mysql : ", error)
-    } else {
-        console.log('connected');
-    }
 })
 
 // afficher tous les produits
