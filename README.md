@@ -47,7 +47,7 @@ Technologies utilisées pour le développement du site :
 
 - [x] **Inscription en ligne ou en magasin** : Les clients peuvent s’inscrire directement en ligne en créant un mot de passe ou être inscrits en magasin sans mot de passe.
 - [x] **Première connexion** : Si un client s’inscrit en magasin, il pourra se connecter en ligne et définir un mot de passe pour accéder à son compte
-- [ ] **Accès sécurisé** : L’authentification au compte client est obligatoire pour passer une commande.
+- [x] **Accès sécurisé** : L’authentification au compte client est obligatoire pour passer une commande.
 
 ### Gestion du profil Client
 
