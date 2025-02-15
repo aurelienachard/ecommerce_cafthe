@@ -37,8 +37,8 @@ db.connect((error) => {
 // route pour la creation d'une session stripe
 
 app.post('/create-checkout-session', (request, response) => {
-    const cart = request.body.cart; // on recupere le panier
-
+    const cart = request.body.cart
+    
     // on mappe les donnees a ce que stripe attend
     const line_items = cart.map(item => ({
         price_data: {
@@ -51,18 +51,17 @@ app.post('/create-checkout-session', (request, response) => {
         quantity: item.quantite, // on recupere la quantite d'articles
     }))
 
-    // creation d'une session stripe
     stripe.checkout.sessions.create({
-        ui_mode: 'embedded', // l'interface de stripe sera directement dans notre page
-        line_items: line_items, // liste les produits dans le panier
-        mode: 'payment', // ceci est un paiement unique
-        // The URL of your payment completion page
-        return_url: `${YOUR_DOMAIN}`, // redirection vers la page une fois le paiement reussi
-        payment_method_types: ['card'], // on defini les methodes de paiement
-    }).then(session => {
-        response.json({id: session.id}) // id de la session
-    }).catch(error => {
-        response.json({error: 'une erreur est survenue'})
+        line_items: line_items, // on definit les produits de cart
+        mode: 'payment', // on definit le paiement
+        success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
+        cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue 
+    })
+    .then(session => {
+        response.redirect(session.url)
+    })
+    .catch(error => {
+        console.log('Erreur Stripe :', error);
     })
 })
 
