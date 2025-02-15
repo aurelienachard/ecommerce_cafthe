@@ -32,7 +32,7 @@ const PostalConfig = () => {
     }
 
     return (
-        <div className="flex flex-col items-center p-[24px]">
+        <div className="min-h-screen flex flex-col items-center p-[24px]">
             <div className="bg-warm-neutral border p-[24px]">
                 <h1 className="text-[32px] font-[Roboto] mb-[24px] font-bold text-center">Modifier son adresse postal</h1>
                 <form onSubmit={handleSubmit}>

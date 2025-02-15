@@ -50,7 +50,7 @@ const Produit = () => {
     }
 
     return (
-        <div className="p-[24px]">
+        <div className="min-h-screen p-[24px]">
             {data.map((produit) => (
                 <div key={produit.produit_id}>
                     <h1 className="font-bold font-[Roboto] text-[24px] mb-[20px]">{produit.produit_nom}</h1>

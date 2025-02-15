@@ -36,7 +36,7 @@ const Catalogue = () => {
     )
 
     return (
-        <div className="flex flex-col items-center p-[24px]">
+        <div className=" min-h-screen flex flex-col items-center p-[24px]">
             <h1 className="font-sans text-[32px] font-bold mb-[20px]">Catalogue</h1>
 
             <div>
