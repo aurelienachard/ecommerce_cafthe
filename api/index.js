@@ -58,7 +58,7 @@ app.post('/create-checkout-session', (request, response) => {
         cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue 
     })
     .then(session => {
-        response.redirect(session.url)
+        response.json({url: session.url})
     })
     .catch(error => {
         console.log('Erreur Stripe :', error);
@@ -325,5 +325,4 @@ app.get('/', (request, response) => {
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
-  console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY)
 })
