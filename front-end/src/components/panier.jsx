@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-/*
-    ajout formulaire de connexion
-    ou ajout voir si le profil est connecte avant le paiement
-    pour redirection stripe host heberger
-*/
+import axios from 'axios'
 
 const Panier = () => {
     const [panier, setPanier] = useState([])
@@ -18,8 +13,20 @@ const Panier = () => {
         }
     }, [])
 
-    const passerCommande = () => {
-        navigate('/paiement')
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        axios.post('http://localhost:3001/create-checkout-session', {
+            headers: {
+                'Content-type' : 'application/json' 
+            }
+        })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     const supprimerArticle = (id) => {
@@ -68,7 +75,7 @@ const Panier = () => {
     const token = localStorage.getItem('token')
 
     return (
-        <div className="p-[24px]">
+        <div className="min-h-screen p-[24px]">
             <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
 
             {panier.length === 0 ? (
@@ -76,7 +83,7 @@ const Panier = () => {
             ) : (
                 <>
                     <div>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             {panier.map(item => 
                                 <div key={item.id} className="flex justify-between items-center border p-[16px]">
                                     <p>{item.nom}</p>
@@ -84,7 +91,7 @@ const Panier = () => {
 
                                     <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => diminuerArticle(item.id)}>-</button>
                                     <p>{item.quantite}</p>
-                                    <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => augmenterArticle(item.id, item.stock)}>+</button>
+                                    <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => augmenterArticle(item.id)}>+</button>
 
                                     <p>{item.quantiteGramme}</p>
                                     <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
@@ -104,7 +111,7 @@ const Panier = () => {
                     {token ? (
                         <>
                             <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                            <button onClick={passerCommande} type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                            <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
                         </>
                     ) : (
                         <>

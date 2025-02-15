@@ -14,7 +14,8 @@ import CGV from './components/cgv'
 import PostalConfig from './components/postalconfig'
 import ProfileConfig from './components/profileconfig'
 import ProfilCommande from './components/profileCommande'
-import Paiement from './components/paiement'
+import Success from './components/success'
+import Cancel from './components/cancel'
 
 import './style.css'
 
@@ -67,7 +68,8 @@ const App = () => {
         <Route path="/postalconfig" element={<PostalConfig />}></Route>
         <Route path="/profileconfig" element={<ProfileConfig />}></Route>
         <Route path="/commande" element={<ProfilCommande />}></Route>
-        <Route path="/paiement" element={<Paiement />}></Route>
+        <Route path="/success" element={<Success />}></Route>
+        <Route path="/cancel" element={<Cancel />}></Route>
       </Routes>
       
       <footer className="bg-gray-700 flex justify-center items-center">
