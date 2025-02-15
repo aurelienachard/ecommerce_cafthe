@@ -80,7 +80,7 @@ const Inscription = () => {
                         <input placeholder="Numero de telephone" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
                     </div>
 
-                    <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150" type="submit">S'inscrire</button>
+                    <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150" type="submit">Inscription</button>
 
                     <p className="mt-[20px] w-150">
                         Deja inscrit ?
