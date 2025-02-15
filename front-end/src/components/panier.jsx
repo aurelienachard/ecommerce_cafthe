@@ -65,6 +65,8 @@ const Panier = () => {
         return panier.reduce((total, item) => total + item.prix * item.quantite, 0)
     }
 
+    const token = localStorage.getItem('token')
+
     return (
         <div className="p-[24px]">
             <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
@@ -96,17 +98,27 @@ const Panier = () => {
                             <p>Cout total : {calculerPrixTotal()}€</p>
                         </div>
                     </div>
+                    
+                    {/* debut de verification du token */}
 
-                    <div className="border p-[10px] mt-[10px] mb-[10px]">
-                        <h2>Tu dois te donnecter pour passer commande</h2>
-                        <p>Connecte toi via ce bouton</p>
-                        <button onClick={redirectConnexion} className="border bg-blue-500 py-[12px] px-[16px] mt-[10px] text-white">Se connecter</button>
-                    </div>
+                    {token ? (
+                        <>
+                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                            <button onClick={passerCommande} type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                        </>
+                    ) : (
+                        <>
+                            <div className="border p-[10px] mt-[10px] mb-[10px]">
+                                <h2>Tu dois te connecter pour passer commande</h2>
+                                <p>Connecte toi via ce bouton</p>
+                                <button onClick={redirectConnexion} className="border bg-blue-500 py-[12px] px-[16px] mt-[10px] text-white">Se connecter</button>
+                            </div>
 
-                    <div>
-                        <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                        <button onClick={passerCommande} type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
-                    </div>
+                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
+                        </>
+                    )}
+
+                    {/* fin de verification du token */}
                 </>
             )} 
         </div>
