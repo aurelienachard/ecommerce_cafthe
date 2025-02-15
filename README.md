@@ -39,7 +39,7 @@ Technologies utilisées pour le développement du site :
 
 ### Processus de Commande et Paiement
 
-- [ ] **Validation de commande** : Récapitulatif des produits et informations de livraison avant validation.
+- [x] **Validation de commande** : Récapitulatif des produits et informations de livraison avant validation.
 - [ ] **Livraison** : retrait magasin ou à domicile.
 - [ ] **Paiement** : Simuler un paiement en ligne ou intégrer un service de paiement réel. Le paiement peut être effectué en magasin lors d’un retrait de commande.
 
