@@ -38,30 +38,94 @@ db.connect((error) => {
 
 app.post('/create-checkout-session', (request, response) => {
     const cart = request.body.cart
-    
-    // on mappe les donnees a ce que stripe attend
-    const line_items = cart.map(item => ({
-        price_data: {
-            currency: 'eur', // devise en euro
-            product_data: {
-                name: item.nom, // le nom du produit
-            },
-            unit_amount: Math.round(item.prix * 100), // on multiplie par 100 parce que stripe attend ce format
-        },
-        quantity: item.quantite, // on recupere la quantite d'articles
-    }))
+    const token = request.headers['authorization'].split(' ')[1]
 
-    stripe.checkout.sessions.create({
-        line_items: line_items, // on definit les produits de cart
-        mode: 'payment', // on definit le paiement
-        success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
-        cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue 
-    })
-    .then(session => {
-        response.json({url: session.url})
-    })
-    .catch(error => {
-        console.log('Erreur Stripe :', error);
+    if (!token){
+        return response.json({message: 'Token Manquant'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            return response.json({message: 'Token invalide'})
+        }
+
+        const userID = decoded.id
+
+        db.query('select utilisateurs_adresse_email from utilisateurs WHERE utilisateurs_id = ?', userID, (error, result) => {
+            if (error) {
+                return response.json({message: 'erreur de base de donnees' })
+            }
+            if (result.length === 0) {
+                return response.json({message: 'utilisateur not found'})
+            }
+
+            const userEmail = result[0].utilisateurs_adresse_email
+
+            // on mappe les donnees a ce que stripe attend
+            const line_items = cart.map(item => ({
+                price_data: {
+                    currency: 'eur', // devise en euro
+                    product_data: {
+                        name: item.nom, // le nom du produit
+                    },
+                    unit_amount: Math.round(item.prix * 100), // on multiplie par 100 parce que stripe attend ce format
+                },
+                quantity: item.quantite, // on recupere la quantite d'articles
+            }))
+
+            stripe.checkout.sessions.create({
+                line_items: line_items, // on definit les produits de cart
+                mode: 'payment', // on definit le paiement
+                customer_email: userEmail,
+
+                // il permet d'ajouter une adresse de livraison
+                billing_address_collection: 'required',
+                shipping_address_collection: {
+                    allowed_countries: ['FR']
+                },
+
+                // Options de livraison
+                shipping_options: [
+                    {
+                        shipping_rate_data: {
+                            type: 'fixed_amount',
+                            fixed_amount: {
+                                amount: 0,  // Expédition gratuite
+                                currency: 'eur'
+                            },
+                            display_name: 'Expedition gratuite',
+                            delivery_estimate: {
+                                minimum: { unit: 'business_day', value: 7},
+                                maximum: { unit: 'business_day', value: 14}
+                            }
+                        }
+                    },
+                    {
+                        shipping_rate_data: {
+                            type: 'fixed_amount',
+                            fixed_amount: {
+                                amount: 1500,  // Expédition rapide
+                                currency: 'eur'
+                            },
+                            display_name: 'Livraison Express',
+                            delivery_estimate: {
+                                minimum: { unit: 'business_day', value: 3},
+                                maximum: { unit: 'business_day', value: 5}
+                            }
+                        }
+                    }
+                ],
+
+                success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
+                cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
+            })
+            .then(session => {
+                response.json({url: session.url})
+            })
+            .catch(error => {
+                console.log('Erreur Stripe :', error);
+            })
+        })
     })
 })
 
