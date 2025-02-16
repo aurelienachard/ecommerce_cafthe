@@ -26,6 +26,21 @@ const Produit = () => {
         setQuantite(event.target.value)
     }
 
+    // on declare une fonction pour calculer la taxe en se basant sur la categorie du produit
+    const calculeTax = (produit) => {
+        // on initialise la valeur de la variable a 0
+        let taxRate = 0
+        // si le produit est egale a cafe ou the on definit la attribue la valeur de la taxe a 5.5%
+        if (produit.produit_categorie === 'cafe' || produit.produit_categorie === 'the') {
+            taxRate = 0.055
+        // sinon on attribue une taxe de 20%
+        } else if (produit.produit_categorie === 'accessoires') {
+            taxRate = 0.20
+        }
+        // on return la fonction en faisant le calcul
+        return produit.produit_prix * (1 + taxRate)
+    }
+
     const ajouterProduit = (produit) => {
         // il permet de recuperer les objets stocker 
         const cart = JSON.parse(localStorage.getItem('cart')) || [] // recuperer le panier et si il est vide initialiser un tableau vide
@@ -38,12 +53,15 @@ const Produit = () => {
             produitExisting.quantite += quantite
         } else {
             // sinon ajoute le produit dans le panier
+            const taxPrixTTC = calculeTax(produit)
+
             cart.push({
                 id: produit.produit_id,
                 nom: produit.produit_nom,
                 quantite: quantite,
                 quantiteGramme: quantiteGramme,
-                prix: produit.produit_prix
+                prix: produit.produit_prix,
+                prixTTC: taxPrixTTC // on ajoute aussi prix ttc
             })
         }
         localStorage.setItem('cart', JSON.stringify(cart)) // on met a jour le panier

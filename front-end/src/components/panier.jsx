@@ -17,10 +17,12 @@ const Panier = () => {
         event.preventDefault()
 
         const cart = panier // on recupere les donnees du panier et on stocke dans une variable
+        const token = localStorage.getItem('token')
 
         axios.post('http://localhost:3001/create-checkout-session', {cart}, {
             headers: {
-                'Content-type' : 'application/json' 
+                'Content-type' : 'application/json',
+                'Authorization' : `Bearer ${token}` // ajout du token dans le header
             }
         })
         .then((response) => {
@@ -75,7 +77,7 @@ const Panier = () => {
     }
 
     const calculerPrixTotal = () => {
-        return panier.reduce((total, item) => total + item.prix * item.quantite, 0)
+        return panier.reduce((total, item) => total + item.prixTTC * item.quantite, 0).toFixed(2)
     }
 
     const token = localStorage.getItem('token')
@@ -92,7 +94,7 @@ const Panier = () => {
                             <>
                                 <form onSubmit={handleSubmit}>
                                     {panier.map(item => 
-                                        <div key={item.id} className="flex justify-between items-center border p-[16px]">
+                                        <div key={item.id} className="flex justify-between items-center border p-[16px] mb-[20px]">
                                             <p>{item.nom}</p>
                                             <p>{item.prix}€</p>
 
@@ -107,7 +109,7 @@ const Panier = () => {
 
                                     <div className="mt-[20px]">
                                         <div className="flex">
-                                            <p>Cout total : {calculerPrixTotal()}€</p>
+                                            <p>Cout total TTC : {calculerPrixTotal()}€</p>
                                         </div>
                                     </div>
 
@@ -130,7 +132,6 @@ const Panier = () => {
                                 </form>
                             </>
                     )}
-
                 </div>
         </div>
     )
