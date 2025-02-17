@@ -119,7 +119,22 @@ app.post('/create-checkout-session', (request, response) => {
                 cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
             })
             .then(session => {
-                response.json({url: session.url})
+                // on permet de sauvegarder la commande dans la base de donnees
+                const orderData = {
+                    user_id: userID, // on attribue l'id du client a user_id
+                    product_details: JSON.stringify(cart), // on stocke les details de la commande au format json
+                    orderStatus: 'en attente' // status de base de la commande
+                }
+                
+                // on insere les donnees
+                db.query('insert into orders (user_id, product_details, order_status) values (?, ?, ?)', [orderData.user_id, orderData.product_details, orderData.orderStatus], (error, result) => {
+                    if (error) {
+                        // on affiche une erreur
+                        console.log('erreur lors de la sauvegarde')
+                    }
+                })
+
+                response.json({url: session.url}) // on affiche l'url de la session qui a etait creer
             })
             .catch(error => {
                 console.log('Erreur Stripe :', error);
@@ -133,7 +148,7 @@ app.post('/create-checkout-session', (request, response) => {
 app.get('/orders', (request, response) => {
     const token = request.headers['authorization'].split(' ')[1]
 
-    if (!token){
+    if (!token) {
         return response.json({message: 'Token Manquant'})
     }
 
@@ -144,19 +159,13 @@ app.get('/orders', (request, response) => {
 
         const userID = decoded.id
 
-        db.query('select * from orders where user_id = ?', userID, (error, response) => {
+        db.query('SELECT * FROM orders WHERE user_id = ?', [userID], (error, result) => {
             if (error) {
-                return response.json({message: 'erreur de base de donnees'})
-            } else {
-                response.json(result)
+                return response.json({message: 'erreur de base de données'})
             }
+            // Renvoyer les résultats
+            return response.json(result)
         })
-    })
-
-    jwt.verify(token, secretKey, (error, decoded) => {
-        if (error) {
-            return response.json({message: 'Token invalide'})
-        }
     })
 })
 
