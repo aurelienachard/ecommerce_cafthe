@@ -9,7 +9,8 @@ const ProfilCommande = () => {
 
         axios.get("http://localhost:3001/orders", {
             headers: {
-                'Authorization' : `Bearer ${token}`
+                'Authorization' : `Bearer ${token}`, // on veut le token
+                'Content-Type' : 'application/json', // on veut le format json
             }
         })
         .then(response => {
@@ -21,18 +22,14 @@ const ProfilCommande = () => {
     }, [])
 
     return (
-        <div>
-            <h1>Commandes</h1>
-
-            {commande.map(order => {
-                <div>
-                    <p>Order ID: {order.orders_id}</p>
+        <div className="p-[16px]">
+            <h1 className="font-bold text-[32px] mb-[20px]">Commandes</h1>
+            {commande.map(order => (
+                <div key={order.orders_id}>
+                    <p>OrderID: {order.orders_id}</p>
                     <p>Status: {order.order_status}</p>
-                    <p>Products: {JSON.stringify(order.product_details)}</p> 
-                    {/* on demande a afficher les produits au format json */}
                 </div>
-            })}
-
+            ))}
         </div>
     )
 }
