@@ -14,7 +14,6 @@ app.use(cors())
 // assigner les valeurs d'environnements a des variables
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-const YOUR_DOMAIN = process.env.DOMAIN_REACT
 const secretKey = process.env.SECRET_KEY
 
 // connexion a la db
