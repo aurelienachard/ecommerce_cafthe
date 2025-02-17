@@ -52,7 +52,7 @@ Technologies utilisées pour le développement du site :
 ### Gestion du profil Client
 
 - [x] **Modification des informations** : La fiche client, l’adresse de livraison et le mot de passe peuvent être modifiées.
-- [ ] **Historique des achats** : Le client peut consulter ses dernières commandes.
+- [x] **Historique des achats** : Le client peut consulter ses dernières commandes.
 
 ## Fonctionnalités (Dashboard vendeur)
 
