@@ -128,6 +128,38 @@ app.post('/create-checkout-session', (request, response) => {
     })
 })
 
+// route pour recuperer les produits
+
+app.get('/orders', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1]
+
+    if (!token){
+        return response.json({message: 'Token Manquant'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            return response.json({message: 'Token invalide'})
+        }
+
+        const userID = decoded.id
+
+        db.query('select * from orders where user_id = ?', userID, (error, response) => {
+            if (error) {
+                return response.json({message: 'erreur de base de donnees'})
+            } else {
+                response.json(result)
+            }
+        })
+    })
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            return response.json({message: 'Token invalide'})
+        }
+    })
+})
+
 // afficher tous les produits
 
 app.get('/produits', (request, response) => {
