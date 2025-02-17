@@ -40,8 +40,9 @@ Technologies utilisées pour le développement du site :
 ### Processus de Commande et Paiement
 
 - [x] **Validation de commande** : Récapitulatif des produits et informations de livraison avant validation.
-- [ ] **Livraison** : retrait magasin ou à domicile.
-- [ ] **Paiement** : Simuler un paiement en ligne ou intégrer un service de paiement réel. Le paiement peut être effectué en magasin lors d’un retrait de commande.
+- [x] **Ajouter un paiement** : Simuler un paiement en ligne ou intégrer un service de paiement réel.
+- [ ] **Paiement magasin** : Le paiement peut être effectué en magasin lors d’un retrait de commande.
+- [ ] **Mode de livraison** : On peut retirer sa commande en magasin ou a domicile
 
 ### Inscription et Connexion des Clients
 
