@@ -13,7 +13,7 @@ const Panier = () => {
         }
     }, [])
 
-    const handleSubmit = (event) => {
+    const handleOnlinePayment = (event) => {
         event.preventDefault()
 
         const cart = panier // on recupere les donnees du panier et on stocke dans une variable
@@ -35,6 +35,27 @@ const Panier = () => {
         .catch((error) => {
             console.log("URL de redirection non trouvée dans la réponse", error)
         })
+    }
+
+    const handleStorePayment = (event) => {
+        event.preventDefault()
+        const cart = panier
+        const token = localStorage.getItem('token')
+
+        axios.post('http://localhost:3001/create-store-order', {cart}, {
+            headers: {
+                'Content-type' : 'application/json',
+                'Authorization' : `Bearer ${token}`
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            navigate('/successStore')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
     }
 
     const supprimerArticle = (id) => {
@@ -92,7 +113,7 @@ const Panier = () => {
                             </>
                         ) : (
                             <>
-                                <form onSubmit={handleSubmit}>
+                                <form>
                                     {panier.map(item => 
                                         <div key={item.id} className="flex justify-between items-center border p-[16px] mb-[20px]">
                                             <p>{item.nom}</p>
@@ -115,8 +136,11 @@ const Panier = () => {
 
                                     {token ? (
                                         <>
-                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                                            <button type="submit" className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Passer Commande</button>
+                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px] mt-[20px] mb-[20px]">Retourner vers les courses</button>
+                                            <div>
+                                                <button type="submit" onClick={handleOnlinePayment} className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Payer en ligne</button>
+                                                <button type="submit" onClick={handleStorePayment} className="bg-green-principale text-white py-[12px] px-[16px] ml-[20px] mt-[10px]">Payer en magasin</button>
+                                            </div>
                                         </>
                                     ) : (
                                         <>

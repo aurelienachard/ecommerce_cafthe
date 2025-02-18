@@ -16,6 +16,7 @@ import ProfileConfig from './components/profileconfig'
 import ProfilCommande from './components/profileCommande'
 import Success from './components/success'
 import Cancel from './components/cancel'
+import StorePayement from './components/storePayment'
 
 import './style.css'
 
@@ -73,6 +74,7 @@ const AppSecond = () => {
         <Route path="/commande" element={<ProfilCommande />}></Route>
         <Route path="/success" element={<Success />}></Route>
         <Route path="/cancel" element={<Cancel />}></Route>
+        <Route path="/successStore" element={<StorePayement />}></Route>
       </Routes>
       
       <footer className="bg-gray-700 flex justify-center items-center">
