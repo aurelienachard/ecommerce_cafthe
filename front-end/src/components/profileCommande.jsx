@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import axios from 'axios'
 
 const ProfilCommande = () => {
@@ -15,7 +15,7 @@ const ProfilCommande = () => {
         })
         .then(response => {
             console.log(response.data); // Ajoutez ceci pour vérifier la structure de la réponse
-            setCommande(response.data);
+            // setCommande(response.data);
         })
         .catch(error => {
             console.log(error);
