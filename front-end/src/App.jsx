@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
 
 import Accueil from "./components/accueil"
 import Catalogue from "./components/catalogue"
@@ -19,8 +19,10 @@ import Cancel from './components/cancel'
 
 import './style.css'
 
-const App = () => {
+
+const AppSecond = () => {
   const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -33,10 +35,11 @@ const App = () => {
   const handleDeconnexion = () => {
     localStorage.removeItem('token')
     setUser(false)
+    navigate('/produits')
   }
 
   return (
-    <Router>
+    <>
       <div className="flex bg-green-principale justify-center">
         <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/">Accueil</Link>
         <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/produits">Produits</Link>
@@ -77,6 +80,21 @@ const App = () => {
         <Link to="/CGV" className="text-white ml-[20px]">CGV</Link>
         <p className="text-white p-[20px]">&copy; 2025 Cafthe - Tous droits réservés</p>
       </footer>
+    </>
+  )
+}
+
+/*
+
+  on doit utiliser useNavigate doit etre utilise a l'interieur d'un composant qui est enfant direct d'un composant router
+  Cela se produit généralement lorsque le composant qui utilise useNavigate est rendu en dehors du contexte d'un <Router>
+  
+*/
+
+const App = () => {
+  return (
+    <Router>
+      <AppSecond />
     </Router>
   )
 }
