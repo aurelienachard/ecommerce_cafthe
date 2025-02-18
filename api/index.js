@@ -134,7 +134,6 @@ app.post('/create-checkout-session', (request, response) => {
                     if (error) {
                         // on affiche une erreur
                         return response.json({message: 'Erreur lors de la sauvegarde de la commande'})
-                        console.log('erreur lors de la sauvegarde')
                     } else { 
                         response.json({url: session.url}) // on affiche l'url de la session qui a etait creer
                     }
@@ -145,6 +144,44 @@ app.post('/create-checkout-session', (request, response) => {
                 response.json({message: 'erreur lors de la creation de la session'})
             })
         })
+    })
+})
+
+// route pour le paiement en magasin
+app.post('/create-store-order', (request, response) => {
+    const cart = request.body.cart
+    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+
+    // on verifie la presence du token dans le header
+    if(!token) {
+        return response.json({message: 'aucun token'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            console.log(error)
+        } 
+
+        const id = decoded.id
+
+        // on registre les informations de la commande pour les mettre dans la base de donnees
+        const orderData = {
+            user_id: id,
+            product_details: JSON.stringify(cart),
+            orderStatus: 'à payer en magasin'
+        }
+
+        db.query('insert into orders (user_id, product_details, order_status) values (?, ?, ?)',
+            [orderData.user_id, orderData.product_details, orderData.orderStatus],
+            (error, result) => {
+            if (error) {
+                // on affiche une erreur
+                return response.json({message: 'Erreur lors de la sauvegarde de la commande'})
+            } else { 
+                return response.json({ message: 'Commande enregistrée, paiement en magasin' });
+            }
+        })
+
     })
 })
 
