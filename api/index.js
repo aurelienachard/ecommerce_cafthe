@@ -142,6 +142,38 @@ app.post('/create-checkout-session', (request, response) => {
     })
 })
 
+// modification du profil
+
+app.put('/utilisateurs/modificationProfil', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+    const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone} = request.body
+
+    // on verifie la presence du token dans le header
+    if(!token) {
+        return response.json({message: 'aucun token'})
+    }
+
+    // on obtient l'id de l'utilisateur en fonction du token
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        // on verifie que le token est bien valide
+        if (error) {
+            console.log(error)
+        }
+
+        // on extrait l'id du token
+        const id = decoded.id
+
+        db.query("update utilisateurs set utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_mot_de_passe = ?, utilisateurs_numero_de_telephone = ? WHERE utilisateurs_id = ?", [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone, id], (error, result) => {
+            if (error) {
+                console.log(error)
+            } else {
+                const newToken = jwt.sign({id: id}, secretKey, {expiresIn: '1h' })
+                return response.json({ message: 'Mot de passe mis à jour avec succès', token: newToken })
+            }
+        })
+    })  
+})
 
 // route pour récupérer les informations de l'utilisateur en fonction du token
 app.get('/utilisateurs/profil', (request, response) => {
@@ -388,39 +420,6 @@ app.put('/utilisateurs/newpassword', (request, response) => {
             })
         })
     })
-})
-
-// modification du profil
-
-app.put('/utilisateurs/modificationProfil', (request, response) => {
-    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
-    const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
-
-    // on verifie la presence du token dans le header
-    if(!token) {
-        return response.json({message: 'aucun token'})
-    }
-
-    // on obtient l'id de l'utilisateur en fonction du token
-
-    jwt.verify(token, secretKey, (error, decoded) => {
-        // on verifie que le token est bien valide
-        if (error) {
-            console.log(error)
-        }
-
-        // on extrait l'id du token
-        const id = decoded.id
-
-        db.query("UPDATE utilisateurs SET utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_adresse_email = ?, utilisateurs_mot_de_passe = ?, utilisateurs_numero_de_telephone = ? WHERE utilisateurs_id = ?", [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone, id], (error, result) => {
-            if (error) {
-                console.log(error)
-            } else {
-                const newToken = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
-                return response.json({ message: 'Mot de passe mis à jour avec succès', token: newToken })
-            }
-        });
-    })  
 })
 
 // afficher les adresses postals
