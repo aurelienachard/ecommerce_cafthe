@@ -114,7 +114,6 @@ app.post('/create-checkout-session', (request, response) => {
                         }
                     }
                 ],
-
                 success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
                 cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
             })
@@ -123,7 +122,7 @@ app.post('/create-checkout-session', (request, response) => {
                 const orderData = {
                     user_id: userID, // on attribue l'id du client a user_id
                     product_details: JSON.stringify(cart), // on stocke les details de la commande au format json
-                    orderStatus: 'en attente' // status de base de la commande
+                    orderStatus: 'en cours de traitement' // status de base de la commande
                 }
                 
                 // on insere les donnees
@@ -139,6 +138,35 @@ app.post('/create-checkout-session', (request, response) => {
             .catch(error => {
                 console.log('Erreur Stripe :', error);
             })
+        })
+    })
+})
+
+
+// route pour récupérer les informations de l'utilisateur en fonction du token
+app.get('/utilisateurs/profil', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1]
+
+    if (!token) {
+        return response.json({message: 'Token Manquant'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            return response.json({message: 'Token invalide'})
+        }
+
+        const userID = decoded.id
+
+        db.query('select * from utilisateurs WHERE utilisateurs_id = ?', userID, (error, result) => {
+            if (error) {
+                return response.json({ message: 'Erreur de base de données' })
+            }
+            if (result.length === 0) {
+                return response.json({ message: 'Utilisateur non trouvé' })
+            }
+
+            return response.json(result[0])
         })
     })
 })
