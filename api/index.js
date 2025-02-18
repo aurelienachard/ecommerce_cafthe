@@ -34,7 +34,6 @@ db.connect((error) => {
 })
 
 // route pour la creation d'une session stripe
-
 app.post('/create-checkout-session', (request, response) => {
     const cart = request.body.cart
     const token = request.headers['authorization'].split(' ')[1]
@@ -114,11 +113,14 @@ app.post('/create-checkout-session', (request, response) => {
                         }
                     }
                 ],
+                phone_number_collection: {
+                    enabled: true,
+                },
                 success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
                 cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
             })
             .then(session => {
-                // on permet de sauvegarder la commande dans la base de donnees
+                // on permet de sauvegarder la commande dans la base de donnees                
                 const orderData = {
                     user_id: userID, // on attribue l'id du client a user_id
                     product_details: JSON.stringify(cart), // on stocke les details de la commande au format json
@@ -126,24 +128,27 @@ app.post('/create-checkout-session', (request, response) => {
                 }
                 
                 // on insere les donnees
-                db.query('insert into orders (user_id, product_details, order_status) values (?, ?, ?)', [orderData.user_id, orderData.product_details, orderData.orderStatus], (error, result) => {
+                db.query('insert into orders (user_id, product_details, order_status) values (?, ?, ?)',
+                    [orderData.user_id, orderData.product_details, orderData.orderStatus],
+                    (error, result) => {
                     if (error) {
                         // on affiche une erreur
+                        return response.json({message: 'Erreur lors de la sauvegarde de la commande'})
                         console.log('erreur lors de la sauvegarde')
+                    } else { 
+                        response.json({url: session.url}) // on affiche l'url de la session qui a etait creer
                     }
                 })
-
-                response.json({url: session.url}) // on affiche l'url de la session qui a etait creer
             })
             .catch(error => {
-                console.log('Erreur Stripe :', error);
+                console.log('Erreur Stripe :', error)
+                response.json({message: 'erreur lors de la creation de la session'})
             })
         })
     })
 })
 
 // modification du profil
-
 app.put('/utilisateurs/modificationProfil', (request, response) => {
     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
     const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone} = request.body
@@ -164,7 +169,7 @@ app.put('/utilisateurs/modificationProfil', (request, response) => {
         // on extrait l'id du token
         const id = decoded.id
 
-        db.query("update utilisateurs set utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_mot_de_passe = ?, utilisateurs_numero_de_telephone = ? WHERE utilisateurs_id = ?", [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone, id], (error, result) => {
+        db.query("update utilisateurs set utilisateurs_nom = ?, utilisateurs_prenom = ?, utilisateurs_adresse_email = ?, utilisateurs_numero_de_telephone = ? WHERE utilisateurs_id = ?", [utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone, id], (error, result) => {
             if (error) {
                 console.log(error)
             } else {
@@ -199,6 +204,41 @@ app.get('/utilisateurs/profil', (request, response) => {
             }
 
             return response.json(result[0])
+        })
+    })
+})
+
+// connexion utilisateurs
+
+app.post('/utilisateurs/connexion', (request, response) => {
+    const { utilisateurs_adresse_email, utilisateurs_mot_de_passe } = request.body
+
+    db.query('select * from utilisateurs where utilisateurs_adresse_email = ?', utilisateurs_adresse_email, (error, result) => {
+        if (error) {
+            console.log(error)
+            return response.json(error)
+        }
+
+        if (result.length === 0) {
+            return response.json({message: 'adresse email incorrect'})
+        }
+
+        const user = result[0]
+
+        bcrypt.compare(utilisateurs_mot_de_passe, user.utilisateurs_mot_de_passe, (error, match) => {
+            if (error) {
+                console.log(error)
+                return response.json(error)
+            }
+
+            if (!match) {
+                return response.json({message: 'mot de passe incorrect'})
+            }
+            
+            const token = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
+
+            console.log('Generated Token:', token)
+            return response.json({ token })
         })
     })
 })
@@ -302,41 +342,6 @@ app.post('/utilisateurs/inscription', (request, response) => {
                     response.json('values inserted')
                 }
             })
-        })
-    })
-})
-
-// connexion utilisateurs
-
-app.post('/utilisateurs/connexion', (request, response) => {
-    const { utilisateurs_adresse_email, utilisateurs_mot_de_passe } = request.body
-
-    db.query('select * from utilisateurs where utilisateurs_adresse_email = ?', [utilisateurs_adresse_email], (error, result) => {
-        if (error) {
-            console.log(error)
-            return response.json(error)
-        }
-
-        if (result.length === 0) {
-            return response.json({message: 'adresse email ou mot de passe incorrect'})
-        }
-
-        const user = result[0]
-
-        bcrypt.compare(utilisateurs_mot_de_passe, user.utilisateurs_mot_de_passe, (error, match) => {
-            if (error) {
-                console.log(error)
-                return response.json(error)
-            }
-
-            if (!match) {
-                return response.json({message: 'Adresse email ou mot de passe incorrect'})
-            }
-            
-            const token = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
-
-            console.log('Generated Token:', token)
-            return response.json({ token })
         })
     })
 })
