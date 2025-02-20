@@ -97,7 +97,11 @@ const Panier = () => {
         localStorage.setItem("cart", JSON.stringify(updatedPanier))
     }
 
-    const calculerPrixTotal = () => {
+    const calculerPrixTotalHT = () => {
+        return panier.reduce((total, item) => total + item.prix * item.quantite, 0).toFixed(2)
+    }
+
+    const calculerPrixTotalTTC = () => {
         return panier.reduce((total, item) => total + item.prixTTC * item.quantite, 0).toFixed(2)
     }
 
@@ -129,8 +133,9 @@ const Panier = () => {
                                     )}
 
                                     <div className="mt-[20px]">
-                                        <div className="flex">
-                                            <p>Cout total TTC : {calculerPrixTotal()}€</p>
+                                        <div className="flex flex-col">
+                                            <p>Cout total HT : {calculerPrixTotalHT()}€</p>
+                                            <p>Cout total TTC : {calculerPrixTotalTTC()}€</p>
                                         </div>
                                     </div>
 
