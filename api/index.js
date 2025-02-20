@@ -238,9 +238,9 @@ app.get('/utilisateurs/profil', (request, response) => {
             }
             if (result.length === 0) {
                 return response.json({ message: 'Utilisateur non trouvé' })
+            } else {
+                return response.json(result[0])
             }
-
-            return response.json(result[0])
         })
     })
 })
@@ -257,7 +257,7 @@ app.post('/utilisateurs/connexion', (request, response) => {
         }
 
         if (result.length === 0) {
-            return response.json({message: 'adresse email incorrect'})
+            return response.status(401).json({message: 'adresse email incorrect'})
         }
 
         const user = result[0]
@@ -269,7 +269,7 @@ app.post('/utilisateurs/connexion', (request, response) => {
             }
 
             if (!match) {
-                return response.json({message: 'mot de passe incorrect'})
+                return response.status(401).json({message: 'mot de passe incorrect'})
             }
             
             const token = jwt.sign({id: user.utilisateurs_id}, secretKey, {expiresIn: '1h' })
