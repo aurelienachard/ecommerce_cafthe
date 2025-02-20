@@ -119,15 +119,22 @@ const Panier = () => {
                             <>
                                 <form>
                                     {panier.map(item => 
-                                        <div key={item.id} className="flex justify-between items-center border p-[16px] mb-[20px]">
-                                            <p>{item.nom}</p>
-                                            <p>{item.prix}€</p>
+                                        <div key={item.id} className="bg-neutral max-w- flex justify-between items-center border p-[24px]">
+                                            <img src="./image.jpg" alt="photo" className="w-[128px]"/>
 
-                                            <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => diminuerArticle(item.id)}>-</button>
-                                            <p>{item.quantite}</p>
-                                            <button type="button" className="bg-gray-300 text-black py-[6px] px-[12px]" onClick={() => augmenterArticle(item.id)}>+</button>
+                                            <div>
+                                                <p className="font-bold mb-[10px]">{item.nom}</p>
+                                                <p>{item.quantiteGramme}</p>
+                                            </div>
 
-                                            <p>{item.quantiteGramme}</p>
+                                            <p>${item.prix}</p>
+
+                                            <div className="flex flex-row">
+                                                <button type="button" className="bg-white border text-black py-[12px] px-[16px]" onClick={() => diminuerArticle(item.id)}>-</button>
+                                                <p className="border bg-white py-[12px] px-[16px]">{item.quantite}</p>
+                                                <button type="button" className="bg-white border text-black py-[12px] px-[16px]" onClick={() => augmenterArticle(item.id)}>+</button>
+                                            </div>
+
                                             <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
                                         </div>
                                     )}

@@ -42,18 +42,18 @@ const AppSecond = () => {
   return (
     <>
       <div className="flex bg-green-principale justify-center">
-        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/">Accueil</Link>
-        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/produits">Produits</Link>
-        <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/panier">Panier</Link>
+        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/">Accueil</Link>
+        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/produits">Produits</Link>
+        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/panier">Panier</Link>
         {user ? (
           <>
-            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/profile">Profile</Link>
-            <button className="border mx-[24px] my-[24px] bg-green-principale text-white py-[12px] px-[16px]" onClick={handleDeconnexion}>Deconnexion</button>
+            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/profile">Profile</Link>
+            <button className="mx-[32px] my-[32px] bg-green-principale text-white py-[12px] px-[16px]" onClick={handleDeconnexion}>Deconnexion</button>
           </>
         ) : (
           <>
-            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/connexion">Connexion</Link>
-            <Link className="border mx-[24px] my-[24px] text-white py-[12px] px-[16px]" to="/inscription">Inscription</Link>
+            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/connexion">Connexion</Link>
+            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/inscription">Inscription</Link>
           </>
         )}
       </div>

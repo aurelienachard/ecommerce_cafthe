@@ -50,41 +50,41 @@ const Inscription = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center p-[24px]">
-            <div className="bg-warm-neutral border p-[24px]">
-                <h1 className="text-[32px] font-[Roboto] mb-[24px] font-bold">Inscription</h1>
+        <div className="min-h-screen flex flex-col items-center p-[32px]">
+            <div className="bg-neutral shadow-md p-[24px]">
+                <h1 className="text-[32px] font-[Roboto] mb-[24px] ml-[24px] mt-[24px] font-bold">Inscription</h1>
 
                 <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label>Nom</label>
-                        <input placeholder="Nom" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
+                        <input placeholder="Nom" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
                     </div>
 
-                    <div className="flex flex-col">
-                        <label className="mt-[20px]">Prenom</label>
-                        <input placeholder="Prenom" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
+                    <div className="flex flex-col mr-[24px] ml-[24px]">
+                        <label className="mt-[20px] text-[16px]">Prenom</label>
+                        <input placeholder="Prenom" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
                     </div>
 
-                    <div className="flex flex-col">
-                        <label className="mt-[20px]">Adresse Email</label>
-                        <input placeholder="Adresse Email" className="bg-white border p-[16px] mt-[10px] w-150" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
+                    <div className="flex flex-col mr-[24px] ml-[24px]">
+                        <label className="mt-[20px] text-[16px]">Adresse Email</label>
+                        <input placeholder="Adresse Email" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
                     </div>
 
-                    <div className="flex flex-col">
-                        <label className="mt-[20px]">Mot de passe</label>
-                        <input placeholder="Mot de passe" className="bg-white border p-[16px] mt-[10px] w-150" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
+                    <div className="flex flex-col mr-[24px] ml-[24px]">
+                        <label className="mt-[20px] text-[16px]">Mot de passe</label>
+                        <input placeholder="Mot de passe" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
                     </div>
 
-                    <div className="flex flex-col">
-                        <label className="mt-[20px]">Numero de telephone</label>
-                        <input placeholder="Numero de telephone" className="bg-white border p-[16px] mt-[10px] w-150" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
+                    <div className="flex flex-col mr-[24px] ml-[24px]">
+                        <label className="mt-[20px] text-[16px]">Numero de telephone</label>
+                        <input placeholder="Numero de telephone" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
                     </div>
 
-                    <button className="bg-green-principale p-[16px] mt-[24px] text-white w-150" type="submit">Inscription</button>
+                    <button className="mr-[24px] ml-[24px] bg-green-principale rounded-md px-[12px] py-[16px] mt-[24px] text-white w-[384px]" type="submit">Inscription</button>
 
-                    <p className="mt-[20px] w-150">
+                    <p className="mt-[20px] mr-[24px] ml-[24px] mb-[24px]">
                         Deja inscrit ?
-                        <Link to="/connexion" className="text-green-700"> Connectez-vous</Link>
+                        <Link to="/connexion" className="text-green-700 text-[16px]"> Connectez-vous</Link>
                     </p>
                 </form>
             </div>
