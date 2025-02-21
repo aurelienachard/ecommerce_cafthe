@@ -243,8 +243,6 @@ app.post('/create-store-order', (request, response) => {
     })
 })
 
-
-
 // modification du profil
 app.put('/utilisateurs/modificationProfil', (request, response) => {
     const token = request.headers['authorization'].split(' ')[1] // recuperation du token
@@ -332,8 +330,6 @@ app.get('/utilisateurs/profil', (request, response) => {
         })
     })
 })
-
-
 
 // route pour recuperer l'adresse postal de l'utilisateur en fonction du token
 app.get('/utilisateurs/adresse', (request, response) => {
