@@ -7,6 +7,65 @@ const mysql = require('mysql2')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+// Définir le middleware raw pour /webhook AVANT les autres middlewares
+app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
+    console.log('--------------------------------');
+    console.log('DEBUT DU WEBHOOK');
+    
+    const signature = request.headers['stripe-signature'];
+    
+    try {
+        const event = stripe.webhooks.constructEvent(
+            request.body,
+            signature,
+            process.env.STRIPE_WEBHOOK_SECRET
+        );
+        
+        console.log('Type d\'événement:', event.type);
+        
+        if (event.type === 'checkout.session.completed') {
+            const session = event.data.object;
+            
+            // Vérifier si shipping existe
+            if (session.shipping_details && session.shipping_details.address) {
+                const shippingAddress = session.shipping_details.address;
+                const userID = session.client_reference_id;
+                
+                const adresseData = {
+                    user_id: userID,
+                    adresses_postales_ligne1: shippingAddress.line1,
+                    adresses_postales_ligne2: shippingAddress.line2,
+                    adresses_postales_code_postal: shippingAddress.postal_code,
+                    adresses_postales_ville: shippingAddress.city,
+                    adresses_postales_pays: shippingAddress.country
+                };
+                
+                console.log('Données à insérer:', adresseData);
+                
+                db.query(
+                    'INSERT INTO adresses_postales (user_id, adresses_postales_ligne1, adresses_postales_ligne2, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays) VALUES (?, ?, ?, ?, ?, ?)',
+                    [adresseData.user_id, adresseData.adresses_postales_ligne1, adresseData.adresses_postales_ligne2, adresseData.adresses_postales_code_postal, adresseData.adresses_postales_ville, adresseData.adresses_postales_pays],
+                    (error, result) => {
+                        if (error) {
+                            console.log('Erreur SQL:', error);
+                        } else {
+                            console.log('Adresse insérée avec succès');
+                        }
+                    }
+                );
+            } else {
+                console.log('Pas d\'adresse de livraison dans la session');
+            }
+        }
+        
+        response.json({received: true});
+        
+    } catch (err) {
+        console.log('Erreur webhook:', err.message);
+        return response.status(400).send(`Webhook Error: ${err.message}`);
+    }
+});
+
 app.use(express.json())
 app.use(cors())
 // app.use(express.static('dist'))
@@ -73,10 +132,12 @@ app.post('/create-checkout-session', (request, response) => {
 
             stripe.checkout.sessions.create({
                 line_items: line_items, // on definit les produits de cart
+                client_reference_id: userID,
                 mode: 'payment', // on definit le paiement
                 customer_email: userEmail,
 
                 // il permet d'ajouter une adresse de livraison
+
                 billing_address_collection: 'required',
                 shipping_address_collection: {
                     allowed_countries: ['FR']
@@ -113,9 +174,6 @@ app.post('/create-checkout-session', (request, response) => {
                         }
                     }
                 ],
-                phone_number_collection: {
-                    enabled: true,
-                },
                 success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
                 cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
             })
@@ -184,6 +242,8 @@ app.post('/create-store-order', (request, response) => {
 
     })
 })
+
+
 
 // modification du profil
 app.put('/utilisateurs/modificationProfil', (request, response) => {
