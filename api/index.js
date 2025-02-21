@@ -271,10 +271,38 @@ app.put('/utilisateurs/modificationProfil', (request, response) => {
                 console.log(error)
             } else {
                 const newToken = jwt.sign({id: id}, secretKey, {expiresIn: '1h' })
-                return response.json({ message: 'Mot de passe mis à jour avec succès', token: newToken })
+                return response.json({ message: 'Profile mis à jour avec succès', token: newToken })
             }
         })
     })  
+})
+
+// modification de ladresse
+
+app.put('/utilisateurs/modificationAdress', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1] // recuperation du token
+    const {adresses_postales_ligne1, adresses_postales_ligne2, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays} = request.body
+
+    if(!token) {
+        return response.json({message: 'aucun token'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            console.log(error)
+        }
+
+        const id = decoded.id
+
+        db.query("update adresses_postales set adresses_postales_ligne1 = ?, adresses_postales_ligne2 = ?, adresses_postales_code_postal = ?, adresses_postales_ville = ?, adresses_postales_pays = ? where user_id = ?", [adresses_postales_ligne1, adresses_postales_ligne2, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays, id], (error, result) => {
+            if (error) {
+                console.log(error)
+            } else {
+                const newToken = jwt.sign({id: id}, secretKey, {expiresIn: '1h' })
+                return response.json({ message: 'adresse mis à jour avec succès', token: newToken })
+            }
+        })
+    })
 })
 
 // route pour récupérer les informations de l'utilisateur en fonction du token
@@ -303,6 +331,36 @@ app.get('/utilisateurs/profil', (request, response) => {
             }
         })
     })
+})
+
+
+
+// route pour recuperer l'adresse postal de l'utilisateur en fonction du token
+app.get('/utilisateurs/adresse', (request, response) => {
+    const token = request.headers['authorization'].split(' ')[1]
+
+    if (!token) {
+        return response.json({message: 'Token Manquant'})
+    }
+
+    jwt.verify(token, secretKey, (error, decoded) => {
+        if (error) {
+            return response.json({message: 'Token invalide'})
+        }
+
+        const userID = decoded.id
+
+        db.query('select * from adresses_postales WHERE user_id = ?', userID, (error, result) => {
+            if (error) {
+                return response.json({ message: 'Erreur de base de données' })
+            }
+            if (result.length === 0) {
+                return response.json({ message: 'Utilisateur non trouvé' })
+            } else {
+                return response.json(result[0])
+            }
+        })
+    }) 
 })
 
 // connexion utilisateurs
