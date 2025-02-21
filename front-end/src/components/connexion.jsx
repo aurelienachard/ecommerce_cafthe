@@ -51,12 +51,12 @@ const Connexion = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="text-[16px]">Adresse Email</label>
-                        <input placeholder="Adresse Email" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] mb-[20px] w-[384px]" type="mail" value={utilisateurs_adresse_email} onChange={handleChangeEmail} required/>
+                        <input placeholder="Adresse Email" className="rounded-md border border-gray-contour bg-grey-input px-[12px] py-[16px] mt-[10px] mb-[20px] w-[384px]" type="mail" value={utilisateurs_adresse_email} onChange={handleChangeEmail} required/>
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="text-[16px]">Mot de passe</label>
-                        <input placeholder="Mot de passe" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangePassword} required/>
+                        <input placeholder="Mot de passe" className="rounded-md border border-gray-contour bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangePassword} required/>
                     </div>
 
                     <button className="mr-[24px] ml-[24px] bg-green-principale rounded-md px-[12px] py-[16px] mt-[24px] text-white w-[384px]">Se connecter</button>

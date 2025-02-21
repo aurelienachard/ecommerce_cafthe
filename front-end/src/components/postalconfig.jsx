@@ -87,27 +87,27 @@ const PostalConfig = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Ligne adresse 1</label>
-                        <input placeholder="Ligne adresse 1" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne1} type="text" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
+                        <input placeholder="Ligne adresse 1" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne1} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Ligne adresse 2</label>
-                        <input placeholder="Ligne adresse 2" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne2} type="text" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
+                        <input placeholder="Ligne adresse 2" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne2} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Code postal</label>
-                        <input placeholder="Code postal" onChange={handleChangeAdressePostalesCodePostal} value={adresses_postales_code_postal} type="text" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
+                        <input placeholder="Code postal" onChange={handleChangeAdressePostalesCodePostal} value={adresses_postales_code_postal} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Ville</label>
-                        <input placeholder="Ville" onChange={handleChangeAdressePostalesVille} value={adresses_postales_ville} type="text" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
+                        <input placeholder="Ville" onChange={handleChangeAdressePostalesVille} value={adresses_postales_ville} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Pays</label>
-                        <input placeholder="Pays" onChange={handleChangeAdressePostalesPays} value={adresses_postales_pays} type="text" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
+                        <input placeholder="Pays" onChange={handleChangeAdressePostalesPays} value={adresses_postales_pays} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
                     </div>
 
                     <p>{message}</p>

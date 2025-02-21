@@ -57,30 +57,30 @@ const Inscription = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label>Nom</label>
-                        <input placeholder="Nom" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
+                        <input placeholder="Nom" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_nom} onChange={handleChangeNom} required/>
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Prenom</label>
-                        <input placeholder="Prenom" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
+                        <input placeholder="Prenom" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_prenom} onChange={handleChangePrenom} required/>
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Adresse Email</label>
-                        <input placeholder="Adresse Email" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
+                        <input placeholder="Adresse Email" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="email" value={utilisateurs_adresse_email} onChange={handleChangeAdresseEmail} required/>
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Mot de passe</label>
-                        <input placeholder="Mot de passe" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
+                        <input placeholder="Mot de passe" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="password" value={utilisateurs_mot_de_passe} onChange={handleChangeMotDePasse} required/>
                     </div>
 
                     <div className="flex flex-col mr-[24px] ml-[24px]">
                         <label className="mt-[20px] text-[16px]">Numero de telephone</label>
-                        <input placeholder="Numero de telephone" className="rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone}/>
+                        <input placeholder="Numero de telephone" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" type="text" value={utilisateurs_numero_de_telephone} onChange={handleChangeNumeroDeTelephone} required/>
                     </div>
 
-                    <button className="mr-[24px] ml-[24px] bg-green-principale rounded-md px-[12px] py-[16px] mt-[24px] text-white w-[384px]" type="submit">Inscription</button>
+                    <button className="mr-[24px] ml-[24px] bg-green-principale border border-gray-contour rounded-md px-[12px] py-[16px] mt-[24px] text-white w-[384px]" type="submit">Inscription</button>
 
                     <p className="mt-[20px] mr-[24px] ml-[24px] mb-[24px]">
                         Deja inscrit ?
