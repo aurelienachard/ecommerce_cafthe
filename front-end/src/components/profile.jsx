@@ -28,10 +28,10 @@ const Profile = () => {
             <p className="text-[24px]">Bonjour, {username}!</p>
 
             <div className="flex flex-col">
-                <Link to="/fortgetpwd" className=" mt-[16px] text-green-principale">Modifier son mot de passe</Link>
-                <Link to="/profileconfig" className=" mt-[16px] text-green-principale">Modifier son profil</Link>
-                <Link to="/postalconfig" className=" mt-[16px] text-green-principale">Modifier son adresse postal</Link>
-                <Link to="/commande" className="mt-[16px] text-green-principale">Voir les commandes</Link>
+                <Link to="/fortgetpwd" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son mot de passe</Link>
+                <Link to="/profileconfig" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son profil</Link>
+                <Link to="/postalconfig" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son adresse postal</Link>
+                <Link to="/commande" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Voir les commandes</Link>
             </div>
         </div>
     )
