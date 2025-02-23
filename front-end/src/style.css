@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
-@theme {
+@theme{
     --color-black: #000000;
     --color-white: #ffffff;
     /* couleur verte */
@@ -11,6 +11,8 @@
     /* couleur neutre */
     --color-warm-neutral: #f2f0eb;
     --color-neutral: #f9f9f9;
+    --color-grey-input: #D9D9D9;
+    --color-gray-contour: #bbb;
 
     --font-roboto: 'Roboto', sans-serif;
 }
