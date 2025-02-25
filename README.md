@@ -73,7 +73,7 @@ Technologies utilises pour la developpement du site:
 
 ### Gestion des produits
 
-- [ ] **Ajout, modification, et suppression de produits** : Les vendeurs pourront gérer les thés, cafés ou accessoires, qu’ils soient vendus en boîtes ou au poids.
+- [x] **Ajout, modification, et suppression de produits** : Les vendeurs pourront gérer les thés, cafés ou accessoires, qu’ils soient vendus en boîtes ou au poids.
 - [ ] **Catégorisation des produits** : Les produits seront organisés par catégorie, avec un taux de TVA appliqué (5,5 % pour les thés/cafés, 20 % pour les accessoires).
 - [ ] **Affichage des prix HT et TTC** : Les vendeurs saisissent le prix HT, et le calcul du prix TTC est automatique selon la TVA.
 - [ ] **Gestion du stock** : Suivi du stock en magasin et en ligne.
