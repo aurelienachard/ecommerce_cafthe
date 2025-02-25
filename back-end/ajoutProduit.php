@@ -4,24 +4,30 @@
 
     // condition pour savoir si la requete est post
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        // recuperation des valeurs dans les champs input
-        $nom = htmlspecialchars(filter_input(INPUT_POST, 'nom'));
-        $quantite = htmlspecialchars(filter_input(INPUT_POST, 'quantite')); 
-        $categorie = htmlspecialchars(filter_input(INPUT_POST, 'categorie')); 
-        $prix = htmlspecialchars(filter_input(INPUT_POST, 'prix')); 
-        $description = htmlspecialchars(filter_input(INPUT_POST, 'description')); 
+        try {
+            // recuperation des valeurs dans les champs input
+            $nom = htmlspecialchars(filter_input(INPUT_POST, 'nom'));
+            $quantite = htmlspecialchars(filter_input(INPUT_POST, 'quantite')); 
+            $categorie = htmlspecialchars(filter_input(INPUT_POST, 'categorie')); 
+            $prix = htmlspecialchars(filter_input(INPUT_POST, 'prix')); 
+            $description = htmlspecialchars(filter_input(INPUT_POST, 'description')); 
 
-        $sql = "insert into produit (produit_nom, produit_quantite, produit_categorie, produit_prix, produit_description) values ('$nom', '$quantite', '$categorie', '$prix', '$description')";
-        $query = mysqli_query($conn, $sql);
+            $sql = "INSERT INTO produit (produit_nom, produit_quantite, produit_categorie, produit_prix, produit_description) VALUES (:nom, :quantite, :categorie, :prix, :description)";
+            $result = $conn->prepare($sql);
 
-            if($query) {
-                echo "<p>produit ajouter</p>";
-            } else {
-                echo "<p>produit non ajouter</p>";
-            }
-        } else {
-            echo "les champs sont obligatoires";
+            $result->execute([
+                ':nom' => $nom,
+                ':quantite' => $quantite,
+                ':categorie' => $categorie,
+                ':prix' => $prix,
+                ':description' => $description
+            ]);
+
+            echo "<p>Produit ajoute</p>";
+        } catch(PDOException $e) {
+            echo "<p>Erreur lors de l'ajout : " . $e->getMessage() . "</p>";
         }
+    }
 ?>
 
 <!DOCTYPE html>
