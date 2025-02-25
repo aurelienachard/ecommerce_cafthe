@@ -3,28 +3,30 @@
     session_start();
 
     $id = $_GET['id']; // recuperer id produit
-    $sql = "select * from produit where produit_id = $id"; // requete sql
-    $result = mysqli_query($conn, $sql); // associer requete a la connexion a la db
-    $produit = mysqli_fetch_assoc($result); // Récupérer une ligne de résultat sous la forme d'un tableau associatif
 
-    // condition pour savoir si la requete est post
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        // recuperation des valeurs dans les champs input
-        $nom = htmlspecialchars(filter_input(INPUT_POST, 'nom'));
-        $quantite = htmlspecialchars(filter_input(INPUT_POST, 'quantite')); 
-        $categorie = htmlspecialchars(filter_input(INPUT_POST, 'categorie')); 
-        $prix = htmlspecialchars(filter_input(INPUT_POST, 'prix')); 
-        $description = htmlspecialchars(filter_input(INPUT_POST, 'description')); 
+    try {
+        // recuperation produit
+        $sql = $conn->prepare("SELECT * FROM produit WHERE produit_id = ?");
+        $sql->execute([$id]);
+        $produit = $sql->fetch(PDO::FETCH_ASSOC);
 
-        $sql = "UPDATE produit SET produit_nom='$nom', produit_quantite='$quantite', produit_categorie='$categorie', produit_prix='$prix', produit_description='$description' WHERE produit_id = $id";
-        $query = mysqli_query($conn, $sql);
-        
-        // verifier que le query est valide ou non
-        if($query) {
-            echo "<p>Produit mis à jour</p>";
-        } else {
-            echo "<p>Échec de la mise à jour du produit</p>";
+        // condition pour savoir si la requete est post
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            // recuperation des valeurs dans les champs input
+            $nom = htmlspecialchars(filter_input(INPUT_POST, 'nom'));
+            $quantite = htmlspecialchars(filter_input(INPUT_POST, 'quantite')); 
+            $categorie = htmlspecialchars(filter_input(INPUT_POST, 'categorie')); 
+            $prix = htmlspecialchars(filter_input(INPUT_POST, 'prix')); 
+            $description = htmlspecialchars(filter_input(INPUT_POST, 'description')); 
+
+            // Mise à jour des informations du produit
+            $sql = $conn->prepare("UPDATE produit SET produit_nom = ?, produit_quantite = ?, produit_categorie = ?, produit_prix = ?, produit_description = ? WHERE produit_id = ?");
+            $sql->execute([$nom, $quantite, $categorie, $prix, $description, $id]);
+
+            echo "<p>Produit mis à jour avec succès.</p>";
         }
+    } catch(PDOException $e) {
+        echo "<p>Erreur : " . htmlspecialchars($e->getMessage()) . "</p>";
     }
 ?>
 
