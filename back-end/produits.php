@@ -4,9 +4,8 @@
     // selectionner les produits
     $sql = "select * from produit";
     // faire la requete avec la db
-    $result = mysqli_query($conn, $sql);
-    // on recupere les donnees
-    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $result = $conn->query($sql);
+    $rows = $result->fetchAll();
 ?>
 
 <!DOCTYPE html>
