@@ -20,7 +20,6 @@ import StorePayement from './components/storePayment'
 
 import './style.css'
 
-
 const AppSecond = () => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
@@ -41,19 +40,19 @@ const AppSecond = () => {
 
   return (
     <>
-      <div className="flex bg-green-principale justify-center">
-        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/">Accueil</Link>
-        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/produits">Produits</Link>
-        <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/panier">Panier</Link>
+      <div className="border bg-green-principale p-[32px] flex justify-center">
+        <Link className="font-bold mx-[10px] px-[16px] py-[12px] text-white" to="/">Accueil</Link>
+        <Link className="font-bold mx-[10px] px-[16px] py-[12px] text-white" to="/produits">Produits</Link>
+        <Link className="font-bold mx-[10px] px-[16px] py-[12px] text-white" to="/panier">Panier</Link>
         {user ? (
           <>
-            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/profile">Profile</Link>
-            <button className="mx-[32px] my-[32px] bg-green-principale text-white py-[12px] px-[16px]" onClick={handleDeconnexion}>Deconnexion</button>
+            <Link className="font-bold mx-[10px] px-[16px] py-[12px] text-white" to="/profile">Profile</Link>
+            <button className="font-bold px-[16px] py-[12px] text-white mx-[10px]" onClick={handleDeconnexion}>Deconnexion</button>
           </>
         ) : (
           <>
-            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/connexion">Connexion</Link>
-            <Link className="mx-[32px] my-[32px] text-white py-[12px] px-[16px]" to="/inscription">Inscription</Link>
+            <Link className="font-bold px-[16px] py-[12px] text-white mx-[10px]" to="/inscription">Inscription</Link>
+            <Link className="font-bold px-[16px] py-[12px] text-white mx-[10px]" to="/connexion">Connexion</Link>
           </>
         )}
       </div>
@@ -77,10 +76,64 @@ const AppSecond = () => {
         <Route path="/successStore" element={<StorePayement />}></Route>
       </Routes>
       
-      <footer className="bg-gray-700 flex justify-center items-center">
-        <Link to="/CGU" className="text-white">CGU</Link>
-        <Link to="/CGV" className="text-white ml-[20px]">CGV</Link>
-        <p className="text-white p-[20px]">&copy; 2025 Cafthe - Tous droits réservés</p>
+      <footer className="bg-black-footer text-white p-[32px]">
+        <h2 className="font-bold text-[24px] mb-[10px]">CAFTHE</h2>
+        <p className="w-[500px]">Votre entreprise qui est spécialisée dans la vente de thés et de cafés haut de gamme, provenant des 4 coins du monde.</p>
+        
+        <div className="border my-[20px]"></div>
+
+        <div className="flex justify-between">
+          {/* Localisation */}
+          <div>
+            <h2 className="text-[18px] font-bold mb-[10px]">COORDONNÉES</h2>
+
+            <div className="flex mt-[20px] items-center">
+              <img src="pin.png" className="w-[28px] mr-[10px]" alt="icone" />
+              <p>69 Rue du Commerce, 41000 Blois</p>
+            </div>
+
+            <div className="flex my-[20px] items-center">
+              <img src="phone-call.png" className="w-[28px] mr-[10px]" alt="icone" />
+              <p>+33 02 42 42 42 42</p>
+            </div>
+
+            <div className="flex items-center">
+              <img src="email.png" className="w-[28px] mr-[10px]" alt="icone" />
+              <p>contact@cafthe.fr</p>
+            </div>
+          </div>
+
+          {/* Liens vers les produits */}
+          <div className="flex flex-col">
+            <h2 className="text-[18px] font-bold mb-[10px]">PAGES</h2>
+            <Link className="mb-[10px]" to="#">Produits</Link>
+            <Link className="mb-[10px]" to="#">Accessoires</Link>
+            <Link className="mb-[10px]" to="#">Blog</Link>
+          </div>
+
+          {/* Liens vers le support */}
+          <div className="flex flex-col">
+            <h2 className="text-[18px] font-bold mb-[10px]">SUPPORT</h2>
+            <Link className="mb-[10px]" to="#">Contact US</Link>
+            <Link className="mb-[10px]" to="#">FAQs</Link>
+            <Link className="mb-[10px]" to="#">Shipping Options</Link>
+          </div>
+        </div>
+
+        <div className="border my-[20px]"></div>
+
+        {/* Informations utiles */}
+        <div className="flex justify-between">
+          <div>
+            <p>&copy; 2025 Cafthe. Tous droits réservés.</p>
+          </div>
+
+          <div className='flex'>
+            <Link to="/CGU">Conditions Générales Utilisation</Link>
+            <p className="mx-[10px]">|</p>
+            <Link to="/CGV">Conditions Générales de Vente</Link>
+          </div>
+        </div>
       </footer>
     </>
   )
