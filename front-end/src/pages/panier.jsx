@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 
+import { XMarkIcon } from '@heroicons/react/20/solid'
+
 const Panier = () => {
     const [panier, setPanier] = useState([])
     const navigate = useNavigate()
@@ -108,67 +110,144 @@ const Panier = () => {
     const token = localStorage.getItem('token')
 
     return (
-        <div className="min-h-screen p-[24px]">
-            <h1 className="font-bold font-[roboto] text-[32px] mb-[24px]">Mon panier</h1>
+        <div className="bg-white">
+            <div className="mx-auto max-w-[672px] px-[16px] pt-[64px] pb-[96px] sm:px-[24px] lg:max-w-[1280px] lg:px-[32px]">   
+                <h1 className="text-[32px] font-bold text-gray-900 sm:text-4xl">Mon panier</h1>
+
                 <div>
                     {panier.length === 0 ? (
-                            <>
-                                <p>le panier est vide</p>
-                            </>
+                        <div className="mt-[24px] text-center">
+                            <p className="text-gray-500">Le panier est vide</p>
+                        </div>
                         ) : (
-                            <>
-                                <form>
-                                    {panier.map(item => 
-                                        <div key={item.id} className="bg-neutral max-w- flex justify-between items-center border p-[24px]">
-                                            <img src="./image.jpg" alt="photo" className="w-[128px]"/>
+                            <form className="mt-12">
+                                <div className="flex flex-col lg:flex-row lg:gap-x-12 xl:gap-x-16">
+                                    <div className="flex-1">
+                                        <div className="border-t border-b border-gray-200">
+                                            {panier.map(item => 
+                                                <div key={item.id} className="flex py-6 sm:py-10">
+                                                    <div className="shrink-0">
+                                                        <img src="./image.jpg"
+                                                            alt={item.nom}
+                                                            className="size-24 rounded-md object-cover sm:size-48"
+                                                        />
+                                                    </div>
 
-                                            <div>
-                                                <p className="font-bold mb-[10px]">{item.nom}</p>
-                                                <p>{item.quantiteGramme}</p>
-                                            </div>
+                                                    <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+                                                        <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                                                            <div>
+                                                                <div className="flex justify-between">
+                                                                    <h3 className="text-sm">
+                                                                        <span className="font-medium text-gray-700 hover:text-gray-800">
+                                                                            {item.nom}
+                                                                        </span>
+                                                                    </h3>
+                                                                </div>
+                                                                <p className="mt-1 text-sm text-gray-500">{item.quantiteGramme}</p>
+                                                                <p className="mt-1 text-sm font-medium text-gray-900">${item.prix}</p>
+                                                            </div>
 
-                                            <p>${item.prix}</p>
+                                                            <div className="mt-4 sm:mt-0 sm:pr-9">
+                                                                <div className="flex items-center space-x-3">
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => diminuerArticle(item.id)}
+                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                        -
+                                                                    </button>
 
-                                            <div className="flex flex-row">
-                                                <button type="button" className="bg-white border text-black py-[12px] px-[16px]" onClick={() => diminuerArticle(item.id)}>-</button>
-                                                <p className="border bg-white py-[12px] px-[16px]">{item.quantite}</p>
-                                                <button type="button" className="bg-white border text-black py-[12px] px-[16px]" onClick={() => augmenterArticle(item.id)}>+</button>
-                                            </div>
+                                                                    <p className="text-sm text-gray-900">{item.quantite}</p>
 
-                                            <button type="button" className="bg-red-400 text-white py-[12px] px-[16px]" onClick={() => supprimerArticle(item.id)}>Supprimer</button>
-                                        </div>
-                                    )}
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => augmenterArticle(item.id)}
+                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                        +
+                                                                    </button>
+                                                                </div>
 
-                                    <div className="mt-[20px]">
-                                        <div className="flex flex-col">
-                                            <p>Cout total HT : {calculerPrixTotalHT()}€</p>
-                                            <p>Cout total TTC : {calculerPrixTotalTTC()}€</p>
+                                                                <div className="absolute right-0 top-0">
+                                                                    <button
+                                                                        type="button" 
+                                                                        onClick={() => supprimerArticle(item.id)}
+                                                                        className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500">
+                                                                        <span className="sr-only">Supprimer</span>
+                                                                        <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
-                                    {token ? (
-                                        <>
-                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px] mt-[20px] mb-[20px]">Retourner vers les courses</button>
-                                            <div>
-                                                <button type="submit" onClick={handleOnlinePayment} className="bg-green-principale text-white py-[12px] px-[16px] mt-[10px]">Payer en ligne</button>
-                                                <button type="submit" onClick={handleStorePayment} className="bg-green-principale text-white py-[12px] px-[16px] ml-[20px] mt-[10px]">Payer en magasin</button>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className="border p-[10px] mt-[10px] mb-[10px]">
-                                                <h2>Tu dois te connecter pour passer commande</h2>
-                                                <p>Connecte toi via ce bouton</p>
-                                                <button onClick={redirectConnexion} className="border bg-blue-500 py-[12px] px-[16px] mt-[10px] text-white">Se connecter</button>
-                                            </div>
+                                    <div className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:mt-0 lg:w-96">
+                                        <h2 className="text-lg font-medium text-gray-900">
+                                            Récapitulatif de la commande
+                                        </h2>
 
-                                            <button onClick={redirectPage} className="bg-green-principale text-white py-[12px] px-[16px]  mr-[20px]">Retourner vers les courses</button>
-                                        </>
-                                    )}
-                                </form>
-                            </>
-                    )}
+                                        <dl className="mt-6 space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <dt className="text-sm text-gray-600">Total HT</dt>
+                                                <dd className="text-sm font-medium text-gray-900">{calculerPrixTotalHT()}€</dd>
+                                            </div>
+                                            
+                                            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                                                <dt className="text-base font-medium text-gray-900">Cout total TTC</dt>
+                                                <dd className="text-base font-medium text-gray-900">{calculerPrixTotalTTC()}€</dd>
+                                            </div>
+                                            
+                                            {token ? (
+                                                <div className="mt-6 space-y-4">
+                                                        <button 
+                                                            type="submit" 
+                                                            onClick={handleOnlinePayment}
+                                                            className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                                Payer en ligne
+                                                        </button>
+
+                                                        <button 
+                                                            type="submit" 
+                                                            onClick={handleStorePayment}
+                                                            className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                                Payer en magasin
+                                                        </button>
+
+                                                        <button 
+                                                            onClick={redirectPage}
+                                                            className="w-full text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                                Retourner vers les courses
+                                                        </button>
+                                                </div>
+                                            ) : (
+                                                <div className="mt-6 space-y-4">
+                                                    <div className="rounded-md bg-yellow-50 p-4">
+                                                        <h2 className="text-sm font-medium text-yellow-800">Tu dois te connecter pour passer ta commande</h2>
+                                                        <p className="mt-2 text-sm text-yellow-700">Connecte toi via ce bouton</p>
+                                                    </div>
+
+                                                    <button
+                                                        onClick={redirectConnexion}
+                                                        className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                        Se connecter
+                                                    </button>
+                                                    <button
+                                                        onClick={redirectPage}
+                                                        className="w-full text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                        Retourner vers les courses
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </dl>
+                                    </div>
+                                </div>
+                            </form>
+                        )}
                 </div>
+            </div>
+           
         </div>
     )
 }
