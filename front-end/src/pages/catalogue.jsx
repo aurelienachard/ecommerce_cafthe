@@ -19,7 +19,9 @@ const Catalogue = () => {
         })
     }, [])
 
+    // gestion d'evenement
     const handleSearch = (event) => {
+        // il met a jour la variable avec la valeur saisie par l'utilisateur
         setSearch(event.target.value)
     }
 
