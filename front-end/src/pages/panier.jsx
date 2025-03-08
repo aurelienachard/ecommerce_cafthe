@@ -57,12 +57,11 @@ const Panier = () => {
         .catch((error) => {
             console.log(error)
         })
-
     }
 
-    const supprimerArticle = (id) => {
+    const supprimerArticle = (id, quantiteGramme) => {
         // on creer un nouveau tableau sans l'objet supprimer
-        const updatedPanier = panier.filter(item => item.id !== id)
+        const updatedPanier = panier.filter(item => !(item.id === id && item.quantiteGramme === quantiteGramme))
         // on met a jour le panier avec la variable ci-dessus
         setPanier(updatedPanier)
         // on met a jour le panier
@@ -169,7 +168,7 @@ const Panier = () => {
                                                                 <div className="absolute right-0 top-0">
                                                                     <button
                                                                         type="button" 
-                                                                        onClick={() => supprimerArticle(item.id)}
+                                                                        onClick={() => supprimerArticle(item.id, item.quantiteGramme)}
                                                                         className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500">
                                                                         <span className="sr-only">Supprimer</span>
                                                                         <XMarkIcon className="h-5 w-5" aria-hidden="true" />
