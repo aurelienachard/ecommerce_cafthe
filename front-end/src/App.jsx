@@ -18,6 +18,7 @@ import Cancel from './pages/cancel'
 import StorePayement from './pages/storePayment'
 
 import Header from './components/header'
+import Footer from './components/footer'
 
 import './style.css'
 
@@ -44,6 +45,8 @@ const App = () => {
           <Route path="/cancel" element={<Cancel />}></Route>
           <Route path="/successStore" element={<StorePayement />}></Route>
         </Routes>
+
+        <Footer />
       </Router>
   )
 }
