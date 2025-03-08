@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { XCircleIcon } from '@heroicons/react/20/solid'
 
 const PostalConfig = () => {
     const [adresses_postales_ligne1, set_adresses_postales_ligne1] = useState('')
@@ -81,39 +82,111 @@ const PostalConfig = () => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center p-[32px]">
-            <div className="bg-neutral shadow-md p-[24px]">
-                <h1 className="text-[32px] font-[Roboto] mb-[24px] ml-[24px] mt-[24px] font-bold">Modifier son adresse postal</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col mr-[24px] ml-[24px]">
-                        <label className="mt-[20px] text-[16px]">Ligne adresse 1</label>
-                        <input placeholder="Ligne adresse 1" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne1} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
-                    </div>
+        <div className="flex min-h-full flex-1 flex-col py-[48px] justify-center bg-gray-50 sm:px-[24px] lg:px-[32px]">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <h2 className="mt-[24px] text-center text-[24px] font-bold tracking-tight text-gray-900">
+                    Modifier votre adresse postale
+                </h2>
+            </div>
 
-                    <div className="flex flex-col mr-[24px] ml-[24px]">
-                        <label className="mt-[20px] text-[16px]">Ligne adresse 2</label>
-                        <input placeholder="Ligne adresse 2" onChange={handleChangeAdressePostalesNomVoie} value={adresses_postales_ligne2} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
-                    </div>
+            <div className="mt-[42px] sm:mx-auto sm:w-full sm:max-w-[480px]">
+                <div className="bg-white px-[24px] py-[48px] shadow-sm sm:rounded-lg sm:px-[48px]">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        {message && (
+                            <div className="rounded-md bg-red-50 p-4">
+                                <div className="flex">
+                                    <div className="shrink-0">
+                                        <div className="flex">
+                                            <XCircleIcon aria-hidden="true" className="size-5 text-red-400" /> 
+                                            <p className="ml-[10px] text-sm font-medium text-red-800">{message}</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        )}
 
-                    <div className="flex flex-col mr-[24px] ml-[24px]">
-                        <label className="mt-[20px] text-[16px]">Code postal</label>
-                        <input placeholder="Code postal" onChange={handleChangeAdressePostalesCodePostal} value={adresses_postales_code_postal} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
-                    </div>
+                        <div>
+                            <label className="block text-[16px] font-medium text-gray-900">
+                                Ligne adresse 1
+                            </label>
+                            <div className="mt-[10px]">
+                                <input 
+                                    value={adresses_postales_ligne1}
+                                    onChange={handleChangeAdressePostalesNomVoie}
+                                    placeholder="Ligne adresse 1"
+                                    type="text"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                />
+                            </div>
+                        </div>
 
-                    <div className="flex flex-col mr-[24px] ml-[24px]">
-                        <label className="mt-[20px] text-[16px]">Ville</label>
-                        <input placeholder="Ville" onChange={handleChangeAdressePostalesVille} value={adresses_postales_ville} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
-                    </div>
+                        <div>
+                            <label className="block text-[16px] font-medium text-gray-900">
+                                Ligne adresse 2
+                            </label>
+                            <div className="mt-[10px]">
+                                <input 
+                                    value={adresses_postales_ligne2}
+                                    onChange={handleChangeAdressePostalesNomVoie}
+                                    placeholder="Ligne adresse 2"
+                                    type="text"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                />
+                            </div>
+                        </div>
 
-                    <div className="flex flex-col mr-[24px] ml-[24px]">
-                        <label className="mt-[20px] text-[16px]">Pays</label>
-                        <input placeholder="Pays" onChange={handleChangeAdressePostalesPays} value={adresses_postales_pays} type="text" className="border border-gray-contour rounded-md bg-grey-input px-[12px] py-[16px] mt-[10px] w-[384px]" />
-                    </div>
+                        <div>
+                            <label className="block text-[16px] font-medium text-gray-900">
+                                Code postal
+                            </label>
+                            <div className="mt-[10px]">
+                                <input 
+                                    value={adresses_postales_code_postal}
+                                    onChange={handleChangeAdressePostalesCodePostal}
+                                    placeholder="Code postal"
+                                    type="text"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                />
+                            </div>
+                        </div>
 
-                    <p>{message}</p>
+                        <div>
+                            <label className="block text-[16px] font-medium text-gray-900">
+                                Ville
+                            </label>
+                            <div className="mt-[10px]">
+                                <input 
+                                    value={adresses_postales_ville}
+                                    onChange={handleChangeAdressePostalesVille}
+                                    placeholder="Ville"
+                                    type="text"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                />
+                            </div>
+                        </div>
 
-                    <button className="mr-[24px] ml-[24px] bg-green-principale rounded-md px-[12px] py-[16px] mt-[24px] text-white w-[384px]">Mettre a jour</button>
-                </form>
+                        <div>
+                            <label className="block text-[16px] font-medium text-gray-900">
+                                Pays
+                            </label>
+                            <div className="mt-[10px]">
+                                <input 
+                                    value={adresses_postales_pays}
+                                    onChange={handleChangeAdressePostalesPays}
+                                    placeholder="Pays"
+                                    type="text"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-green-500">
+                            Mettre à jour
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     )
