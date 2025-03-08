@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { XCircleIcon } from '@heroicons/react/20/solid'
 import axios from 'axios'
 
 // on utilise setUser en parametre de la fonction pour mettre a jour 
@@ -32,13 +33,12 @@ const Connexion = () => {
             }
         })
         .then((response) => {
-            setMessage('Connexion reussi')
             localStorage.setItem('token', response.data.token)
             navigate('/profile')
             window.location.reload()
         })
         .catch((error) => {
-            setMessage('Connexion echoue')
+            setMessage('Un problème est survenu lors de la connexion')
             console.log(error)
         })
     }
@@ -54,6 +54,20 @@ const Connexion = () => {
             <div className="mt-[42px] sm:mx-auto sm:w-full sm:max-w-[480px]">
                 <div className="bg-white px-[24px] py-[48px] shadow-sm sm:rounded-lg sm:px-[48px]">
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        
+                        {message && (
+                            <div className="rounded-md bg-red-50 p-4">
+                                <div className="flex">
+                                    <div className="shrink-0">
+                                        <div className="flex">
+                                            <XCircleIcon aria-hidden="true" className="size-5 text-red-400" /> 
+                                            <p className="ml-[10px] text-sm font-medium text-red-800">{message}</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        )}
+
                         <div>
                             <label className="block text-[16px] font-medium text-gray-900">
                                 Adresse Email
@@ -100,8 +114,6 @@ const Connexion = () => {
                             className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-green-500">
                             Se connecter
                         </button>
-
-                        <p>{message}</p>
                     </form>
                 </div>
             </div>
