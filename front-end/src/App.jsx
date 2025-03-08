@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
-import Accueil from "./pages/accueil"
 import Catalogue from "./pages/catalogue"
 import Produit from "./pages/produit"
 import Inscription from './pages/inscription'
@@ -28,7 +27,7 @@ const App = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Accueil />}></Route>
+          <Route path="/" element={<Catalogue />}></Route>
           <Route path="/produits" element={<Catalogue />}></Route>
           <Route path="/produits/:produit_id" element={<Produit />}></Route>
           <Route path="/connexion" element={<Connexion />}></Route>
