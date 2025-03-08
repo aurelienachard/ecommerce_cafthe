@@ -22,16 +22,74 @@ const Profile = () => {
     }, [])
 
     return (
-        <div className="min-h-screen p-[24px]">
-            <h1 className="text-[32px] font-bold">Profile</h1>
+        <div className="min-h-screen bg-gray-50">
+            {/* Hero section avec le nom d'utilisateur */}
+            <div className="bg-white shadow">
+                <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+                    <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                        Mon Profil
+                    </h1>
+                    <p className="mt-6 text-xl text-gray-500">
+                        Bonjour, {username}!
+                    </p>
+                </div>
+            </div>
 
-            <p className="text-[24px]">Bonjour, {username}!</p>
+            {/* Section des options du profil */}
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+                    {/* Carte pour modifier le mot de passe */}
+                    <Link to="/fortgetpwd" 
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        <div>
+                            <h3 className="text-lg font-medium text-gray-900">
+                                Modifier mon mot de passe
+                            </h3>
+                            <p className="mt-2 text-sm text-gray-500">
+                                Sécurisez votre compte en mettant à jour votre mot de passe
+                            </p>
+                        </div>
+                    </Link>
 
-            <div className="flex flex-col">
-                <Link to="/fortgetpwd" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son mot de passe</Link>
-                <Link to="/profileconfig" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son profil</Link>
-                <Link to="/postalconfig" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Modifier son adresse postal</Link>
-                <Link to="/commande" className="border border-gray-contour w-150 p-[24px] rounded-md mt-[20px] bg-neutral ">Voir les commandes</Link>
+                    {/* Carte pour modifier le profil */}
+                    <Link to="/profileconfig"
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        <div>
+                            <h3 className="text-lg font-medium text-gray-900">
+                                Modifier mon profil
+                            </h3>
+                            <p className="mt-2 text-sm text-gray-500">
+                                Mettez à jour vos informations personnelles
+                            </p>
+                        </div>
+                    </Link>
+
+                    {/* Carte pour modifier l'adresse postale */}
+                    <Link to="/postalconfig"
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        <div>
+                            <h3 className="text-lg font-medium text-gray-900">
+                                Modifier mon adresse postale
+                            </h3>
+                            <p className="mt-2 text-sm text-gray-500">
+                                Gérez vos adresses de livraison
+                            </p>
+                        </div>
+                    </Link>
+
+                    {/* Carte pour voir les commandes */}
+                    <Link to="/commande"
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        <div>
+                            <h3 className="text-lg font-medium text-gray-900">
+                                Mes commandes
+                            </h3>
+                            <p className="mt-2 text-sm text-gray-500">
+                                Consultez l&apos;historique de vos commandes
+                            </p>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     )
