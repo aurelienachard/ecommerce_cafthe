@@ -25,7 +25,7 @@ const ProfilCommande = () => {
                 <div className="max-w-xl">
                     <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Mes Commandes</h1>
                     <p className="mt-2 text-sm text-gray-500">
-                        Consultez l'état de vos commandes récentes et gérez vos retours.
+                        Consultez l&apos;état de vos commandes récentes et gérez vos retours.
                     </p>
                 </div>
 
