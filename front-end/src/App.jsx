@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import Catalogue from "./pages/catalogue"
 import Produit from "./pages/produit"
@@ -22,27 +22,33 @@ import Footer from './components/footer'
 import './style.css'
 
 const App = () => {
+  // Fonction pour vérifier si l'utilisateur est connecté
+  const isAuthenticated = () => {
+    const token = localStorage.getItem('token')
+    return token && token.length > 0
+  }
+
   return (
       <Router>
         <Header />
 
         <Routes>
-          <Route path="/" element={<Catalogue />}></Route>
-          <Route path="/produits" element={<Catalogue />}></Route>
-          <Route path="/produits/:produit_id" element={<Produit />}></Route>
-          <Route path="/connexion" element={<Connexion />}></Route>
-          <Route path="/inscription" element={<Inscription />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/panier" element={<Panier />}></Route>
-          <Route path="/fortgetpwd" element={<Fortgetpwd />}></Route>
-          <Route path="/CGU" element={<CGU />}></Route>
-          <Route path="/CGV" element={<CGV />}></Route>
-          <Route path="/postalconfig" element={<PostalConfig />}></Route>
-          <Route path="/profileconfig" element={<ProfileConfig />}></Route>
-          <Route path="/commande" element={<ProfilCommande />}></Route>
-          <Route path="/success" element={<Success />}></Route>
-          <Route path="/cancel" element={<Cancel />}></Route>
-          <Route path="/successStore" element={<StorePayement />}></Route>
+          <Route path="/" element={<Catalogue />} />
+          <Route path="/produits" element={<Catalogue />} />
+          <Route path="/produits/:produit_id" element={<Produit />} />
+          <Route path="/connexion" element={<Connexion />} />
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/profile" element={isAuthenticated() ? <Profile /> : <Navigate to="/connexion" />} />
+          <Route path="/panier" element={<Panier />} />
+          <Route path="/fortgetpwd" element={<Fortgetpwd />} />
+          <Route path="/CGU" element={<CGU />} />
+          <Route path="/CGV" element={<CGV />} />
+          <Route path="/postalconfig" element={isAuthenticated() ? <PostalConfig /> : <Navigate to="/connexion" />} />
+          <Route path="/profileconfig" element={isAuthenticated() ? <ProfileConfig /> : <Navigate to="/connexion" />} />
+          <Route path="/commande" element={isAuthenticated() ? <ProfilCommande /> : <Navigate to="/connexion" />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
+          <Route path="/successStore" element={<StorePayement />} />
         </Routes>
 
         <Footer />
