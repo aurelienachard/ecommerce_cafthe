@@ -16,7 +16,7 @@ const Produit = () => {
         .catch(error => {
             console.log(error)
         })
-    }, [])
+    }, [produit_id])
 
     const handleQuantiteGramme = (event) => {
         setQuantiteGramme(event.target.value)
@@ -45,8 +45,13 @@ const Produit = () => {
         // il permet de recuperer les objets stocker 
         const cart = JSON.parse(localStorage.getItem('cart')) || [] // recuperer le panier et si il est vide initialiser un tableau vide
 
+        // verifie si le produit est un cafe ou un the
+        const isCafeOrThe = produit.produit_categorie === 'cafe' || produit.produit_categorie === 'the'
+
         // chercher si le produit existe ou pas et verifier la quantite en gramme
-        const produitExisting = cart.find(item => item.id === produit.produit_id && item.quantiteGramme === quantiteGramme) 
+        const produitExisting = isCafeOrThe 
+            ? cart.find(item => item.id === produit.produit_id && item.quantiteGramme === quantiteGramme)
+            : cart.find(item => item.id === produit.produit_id)
 
         if (produitExisting) {
             // si le produit existe on met a jour la quanite
@@ -55,14 +60,19 @@ const Produit = () => {
             // sinon ajoute le produit dans le panier
             const taxPrixTTC = calculeTax(produit)
 
-            cart.push({
+            const newCart = {
                 id: produit.produit_id,
                 nom: produit.produit_nom,
                 quantite: quantite,
-                quantiteGramme: quantiteGramme,
                 prix: produit.produit_prix,
                 prixTTC: taxPrixTTC // on ajoute aussi prix ttc
-            })
+            }
+
+            if (isCafeOrThe) {
+                newCart.quantiteGramme = quantiteGramme
+            }
+
+            cart.push(newCart)
         }
         localStorage.setItem('cart', JSON.stringify(cart)) // on met a jour le panier
     }
