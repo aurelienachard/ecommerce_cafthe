@@ -3,12 +3,12 @@ import { Link } from "react-router-dom"
 import axios from 'axios'
 
 const Catalogue = () => {
-    const [data, setData] = useState([]) // composants pour stocker et afficher les produits
-    const [search, setSearch] = useState('') // composants pour rechercher le produit
-    const [selectCategory, setSelectCatagory] = useState('') // composants pour filtrer les produits
-    const [activeBouton, setActiveBouton] = useState('')
+    const [data, setData] = useState([]) // variable pour stocker et afficher les produits
+    const [search, setSearch] = useState('') // variable pour rechercher le produit
+    const [selectCategory, setSelectCatagory] = useState('') // variable pour filtrer les produits
+    const [activeBouton, setActiveBouton] = useState('') // variable pour le bouton filtre
 
-    // afficher la liaison entre le serveur et l'api
+    // liaison entre le serveur et l'api
     useEffect(() => {
         axios.get("http://localhost:3001/produits")
         .then(response => {
@@ -19,20 +19,23 @@ const Catalogue = () => {
         })
     }, [])
 
-    // gestion d'evenement
     const handleSearch = (event) => {
-        // il met a jour la variable avec la valeur saisie par l'utilisateur
         setSearch(event.target.value)
     }
 
     const handleCategory = (category) => {
-        // met a jour l'etat de selectCategory en fonction du bouton clique et du parametre category
+        /*
+        * met a jour l'etat de selectCategory en fonction du
+        * bouton clique et du parametre category
+        */
         setSelectCatagory(category)
         setActiveBouton(category)
     }
 
+    // fonction de recherche
     const filteredProducts = data.filter((produit) => 
-        produit.produit_nom.toLowerCase().includes(search.toLowerCase()) && (selectCategory === '' || produit.produit_categorie === selectCategory)
+        produit.produit_nom.toLowerCase().includes(search.toLowerCase())
+        && (selectCategory === '' || produit.produit_categorie === selectCategory)
         /*
             on verifie le nom du produit
             on verifie la categorie du produit
@@ -41,7 +44,7 @@ const Catalogue = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            <div className="mx-auto max-w-[672px] px-[16px] py-[32px] sm:px-[24px] lg:max-w-[1280px] lg:px-[]">
+            <div className="mx-auto max-w-[672px] px-[16px] py-[32px] sm:px-[24px] lg:max-w-[1280px]">
                 <div>
                     <h1 className="text-[36px] font-bold text-gray-900">Produits</h1>
                     <p className="mt-[16px] text-base text-gray-500">Découvrez nos produits au goût exceptionnel !</p>
