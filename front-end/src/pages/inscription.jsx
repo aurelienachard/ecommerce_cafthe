@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { XCircleIcon } from '@heroicons/react/20/solid'
 import axios from 'axios'
 
 const Inscription = () => {
@@ -8,6 +9,7 @@ const Inscription = () => {
     const [utilisateurs_adresse_email, set_utilisateurs_adresse_email] = useState('')
     const [utilisateurs_mot_de_passe, set_utilisateurs_mot_de_passe] = useState('')
     const [utilisateurs_numero_de_telephone, set_utilisateurs_numero_de_telephone] = useState('')
+    const [message, setMessage] = useState('')
     const navigate = useNavigate()
 
     const handleChangeNom = (event) => {
@@ -45,6 +47,7 @@ const Inscription = () => {
             console.log(response)
         })
         .catch((error) => {
+            setMessage("Un problème est survenu lors de l'inscription")
             console.log(error)
         })
     }
@@ -60,6 +63,20 @@ const Inscription = () => {
             <div className="mt-[42px] sm:mx-auto sm:w-full sm:max-w-[480px]">
                 <div className="bg-white px-[24px] py-[48px] shadow-sm sm:rounded-lg sm:px-[48px]">
                     <form onSubmit={handleSubmit} className="space-y-6">
+
+                        {message && (
+                            <div className="rounded-md bg-red-50 p-4">
+                                <div className="flex">
+                                    <div className="shrink-0">
+                                        <div className="flex">
+                                            <XCircleIcon aria-hidden="true" className="size-5 text-red-400" /> 
+                                            <p className="ml-[10px] text-sm font-medium text-red-800">{message}</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        )}
+
                         <div>
                             <label className="block text-[16px] font-medium text-gray-900">
                                 Nom
