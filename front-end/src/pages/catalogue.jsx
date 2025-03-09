@@ -54,6 +54,7 @@ const Catalogue = () => {
                 <Recherche search={setSearch} />
 
                 <div className="pt-[32px] flex flex-col lg:flex-row gap-[32px]">
+                    {/* On defini le composant pour le filtre, on fait passer la variable handleCategory et activeBoutondans les props */}
                     <Filtre handleCategory={handleCategory} activeBouton={activeBouton} />
 
                     <div className="flex-1">
@@ -78,7 +79,6 @@ const Catalogue = () => {
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
