@@ -109,7 +109,7 @@ const Produit = () => {
                                         min="1"
                                         max={produit.produit_quantite}
                                         onChange={handleQuantite}
-                                        className="mt-[10px] w-[80px] border border-gray-200 py-[12px] px-[16px] text-[16px] font-medium text-gray-900 focus:border-green-600 focus:outline-none rounded-md"
+                                        className="mt-[10px] w-[80px] border border-gray-200 py-[12px] px-[16px] text-[16px] font-medium text-gray-900 focus:border-emerald-600 focus:outline-none rounded-md"
                                     />
                                 </div>
 
@@ -118,7 +118,7 @@ const Produit = () => {
                                         <h2 className="text-[16px] font-medium text-gray-900">Grammes</h2>
                                         <div className="flex mt-[10px] gap-3">
                                             <label className={`${quantiteGramme === '100g'
-                                                ? 'border-transparent bg-green-600 text-white hover:bg-green-700'
+                                                ? 'border-transparent bg-emerald-600 text-white hover:bg-emerald-700'
                                                 : 'border-gray-200 bg-white text-gray-900 hover:bg-gray-50'
                                             } border flex-1 cursor-pointer flex items-center justify-center rounded-md py-[12px] px-[16px] text-[16px] font-medium uppercase focus:outline-none`}>
                                                 <input
@@ -132,7 +132,7 @@ const Produit = () => {
                                             </label>
 
                                             <label className={`${quantiteGramme === '200g'
-                                                ? 'border-transparent bg-green-600 text-white hover:bg-green-700'
+                                                ? 'border-transparent bg-emerald-600 text-white hover:bg-emerald-700'
                                                 : 'border-gray-200 bg-white text-gray-900 hover:bg-gray-50'
                                             } border flex-1 cursor-pointer flex items-center justify-center rounded-md py-[12px] px-[16px] text-[16px] font-medium uppercase focus:outline-none`}>
                                                 <input
@@ -146,7 +146,7 @@ const Produit = () => {
                                             </label>
 
                                             <label className={`${quantiteGramme === '300g'
-                                                ? 'border-transparent bg-green-600 text-white hover:bg-green-700'
+                                                ? 'border-transparent bg-emerald-600 text-white hover:bg-emerald-700'
                                                 : 'border-gray-200 bg-white text-gray-900 hover:bg-gray-50'
                                             } border flex-1 cursor-pointer flex items-center justify-center rounded-md py-[12px] px-[16px] text-[16px] font-medium uppercase focus:outline-none`}>
                                                 <input
@@ -164,7 +164,7 @@ const Produit = () => {
 
                                 <button 
                                     onClick={() => ajouterProduit(produit)}
-                                    className="mt-[32px] flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-[32px] py-[12px] text-base font-medium text-white hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-hidden"
+                                    className="mt-[32px] flex w-full items-center justify-center rounded-md border border-transparent bg-emerald-600 px-[32px] py-[12px] text-base font-medium text-white hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-hidden"
                                 >
                                     Ajouter au panier
                                 </button>
