@@ -53,14 +53,14 @@ const Catalogue = () => {
                 <div className="border-b border-gray-200 mt-[32px]"></div>
 
                 <input 
-                    className="mt-[32px] w-full text-[16px] outline-1 -outline-offset-1 outline-gray-300 block rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]" 
+                    className="mt-[32px] w-full text-[16px] outline-1 -outline-offset-1 outline-gray-300 block rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]" 
                     placeholder="Rechercher un produit" 
                     onChange={handleSearch}
                 />
 
                 <div className="pt-[32px] flex flex-col lg:flex-row gap-[32px]">
                     <div className="w-full lg:w-[256px]">
-                        <div className="top-4">
+                        <div className="top-[16px]">
                             <p className="text-[16px] font-medium text-gray-900 pb-[16px]">Filtre</p>
 
                             <div className="mt-[16px] space-y-4">
@@ -68,7 +68,7 @@ const Catalogue = () => {
                                     onClick={() => handleCategory('')}
                                     className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
                                         ${activeBouton === '' 
-                                        ? 'bg-green-700 text-white' 
+                                        ? 'bg-emerald-700 text-white' 
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                                 >
@@ -79,7 +79,7 @@ const Catalogue = () => {
                                     onClick={() => handleCategory('cafe')}
                                     className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
                                         ${activeBouton === 'cafe' 
-                                        ? 'bg-green-700 text-white' 
+                                        ? 'bg-emerald-700 text-white' 
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                                 >
@@ -90,7 +90,7 @@ const Catalogue = () => {
                                     onClick={() => handleCategory('the')}
                                     className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
                                         ${activeBouton === 'the'
-                                        ? 'bg-green-700 text-white'
+                                        ? 'bg-emerald-700 text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                                 >
@@ -101,7 +101,7 @@ const Catalogue = () => {
                                     onClick={() => handleCategory('accessoires')}
                                     className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
                                         ${activeBouton === 'accessoires'
-                                        ? 'bg-green-700 text-white'
+                                        ? 'bg-emerald-700 text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                                 >
