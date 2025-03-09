@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import axios from 'axios'
+import Recherche from '../components/recherche'
+import Filtre from '../components/Filtre'
 
 const Catalogue = () => {
     const [data, setData] = useState([]) // variable pour stocker et afficher les produits
@@ -18,10 +20,6 @@ const Catalogue = () => {
             console.log(error)
         })
     }, [])
-
-    const handleSearch = (event) => {
-        setSearch(event.target.value)
-    }
 
     const handleCategory = (category) => {
         /*
@@ -52,64 +50,11 @@ const Catalogue = () => {
 
                 <div className="border-b border-gray-200 mt-[32px]"></div>
 
-                <input 
-                    className="mt-[32px] w-full text-[16px] outline-1 -outline-offset-1 outline-gray-300 block rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]" 
-                    placeholder="Rechercher un produit" 
-                    onChange={handleSearch}
-                />
+                {/* On defini le composant barre de recherche, on fait passer la variable setsearch dans le props */}
+                <Recherche search={setSearch} />
 
                 <div className="pt-[32px] flex flex-col lg:flex-row gap-[32px]">
-                    <div className="w-full lg:w-[256px]">
-                        <div className="top-[16px]">
-                            <p className="text-[16px] font-medium text-gray-900 pb-[16px]">Filtre</p>
-
-                            <div className="mt-[16px] space-y-4">
-                                <button
-                                    onClick={() => handleCategory('')}
-                                    className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
-                                        ${activeBouton === '' 
-                                        ? 'bg-emerald-700 text-white' 
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
-                                >
-                                    All
-                                </button>
-
-                                <button
-                                    onClick={() => handleCategory('cafe')}
-                                    className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
-                                        ${activeBouton === 'cafe' 
-                                        ? 'bg-emerald-700 text-white' 
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
-                                >
-                                    Café
-                                </button>
-                                
-                                <button
-                                    onClick={() => handleCategory('the')}
-                                    className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
-                                        ${activeBouton === 'the'
-                                        ? 'bg-emerald-700 text-white'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
-                                >
-                                    Thé
-                                </button>
-                                
-                                <button
-                                    onClick={() => handleCategory('accessoires')}
-                                    className={`w-full px-[16px] py-[8px] text-left rounded-md transition-colors duration-200 
-                                        ${activeBouton === 'accessoires'
-                                        ? 'bg-emerald-700 text-white'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                    }`}
-                                >
-                                    Accessoires
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <Filtre handleCategory={handleCategory} activeBouton={activeBouton} />
 
                     <div className="flex-1">
                         <div className="flex flex-wrap gap-x-6 gap-y-10 w-full">
