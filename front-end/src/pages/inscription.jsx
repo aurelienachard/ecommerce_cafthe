@@ -88,7 +88,7 @@ const Inscription = () => {
                                     type="text"
                                     value={utilisateurs_nom} 
                                     onChange={handleChangeNom}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -105,7 +105,7 @@ const Inscription = () => {
                                     type="text"
                                     value={utilisateurs_prenom}
                                     onChange={handleChangePrenom}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>    
@@ -122,7 +122,7 @@ const Inscription = () => {
                                     type="email"
                                     value={utilisateurs_adresse_email}
                                     onChange={handleChangeAdresseEmail}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -138,7 +138,7 @@ const Inscription = () => {
                                     type="password"
                                     value={utilisateurs_mot_de_passe}
                                     onChange={handleChangeMotDePasse}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -154,14 +154,14 @@ const Inscription = () => {
                                     type="text"
                                     value={utilisateurs_numero_de_telephone}
                                     onChange={handleChangeNumeroDeTelephone}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
                         </div>
 
                         <button
-                            className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-green-500"
+                            className="flex w-full justify-center rounded-md bg-emerald-600 px-[16px] py-[12px] font-semibold text-white shadow-xs hover:bg-emerald-500"
                             type="submit">
                             Inscription
                         </button>
@@ -169,7 +169,7 @@ const Inscription = () => {
                 </div>
                 <p className="mt-[42px] text-center text-[16px] text-gray-500">
                     Déjà inscrit ?
-                    <Link to="/connexion" className="font-semibold text-green-600 hover:text-green-500"> Connectez-vous</Link>
+                    <Link to="/connexion" className="font-semibold text-emerald-600 hover:text-emerald-500"> Connectez-vous</Link>
                 </p>
             </div>
         </div>

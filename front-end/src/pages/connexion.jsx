@@ -79,7 +79,7 @@ const Connexion = () => {
                                     type="mail"
                                     value={utilisateurs_adresse_email} 
                                     onChange={handleChangeEmail}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -96,7 +96,7 @@ const Connexion = () => {
                                     type="password" 
                                     value={utilisateurs_mot_de_passe} 
                                     onChange={handleChangePassword}
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -105,13 +105,13 @@ const Connexion = () => {
                         <div className="text-[16px]">
                             <Link 
                                 to="/fortgetpwd" 
-                                className="font-semibold text-green-600 hover:text-green-500">
+                                className="font-semibold text-emerald-600 hover:text-emerald-500">
                                 Mot de passe oublié ?
                             </Link>
                         </div>
 
                         <button
-                            className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-green-500">
+                            className="flex w-full justify-center rounded-md bg-emerald-600 px-[16px] py-[12px] font-semibold text-white shadow-xs hover:bg-emerald-500">
                             Se connecter
                         </button>
                     </form>
@@ -122,7 +122,7 @@ const Connexion = () => {
                 Pas encore inscrit ?
                 <Link
                     to="/inscription"
-                    className="font-semibold text-green-600 hover:text-green-500"> Inscrivez-vous
+                    className="font-semibold text-emerald-600 hover:text-emerald-500"> Inscrivez-vous
                 </Link>
             </p>
         </div>

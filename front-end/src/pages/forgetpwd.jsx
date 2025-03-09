@@ -70,7 +70,7 @@ const Fortgetpwd = () => {
                                     value={utilisateurs_adresse_email}
                                     placeholder="Adresse Email"
                                     type="mail"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -87,7 +87,7 @@ const Fortgetpwd = () => {
                                     value={oldPassword}
                                     placeholder="Ancien Mot de passe"
                                     type="password"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
@@ -104,14 +104,14 @@ const Fortgetpwd = () => {
                                     value={newPassword}
                                     placeholder="Nouveau mot de passe"
                                     type="password"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 sm:text-[14px]"
+                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
                                     required
                                 />
                             </div>
                         </div>
 
                         <button 
-                            className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white shadow-xs hover:bg-green-500">
+                            className="flex w-full justify-center rounded-md bg-emerald-600 px-[16px] py-[12px] font-semibold text-white shadow-xs hover:bg-emerald-500">
                             Confirmation
                         </button>
 
