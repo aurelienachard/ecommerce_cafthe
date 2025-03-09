@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import ChampProfileModification from '../components/champProfileModification'
 
 const ProfileConfig = () => {
     const [utilisateurs_nom, set_utilisateurs_nom] = useState('')
@@ -113,65 +114,37 @@ const ProfileConfig = () => {
                             </div>
                         )}
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Nom
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={utilisateurs_nom} 
-                                    onChange={handleChangeNom} 
-                                    placeholder="Nom" 
-                                    type="text" 
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampProfileModification 
+                            label="Nom"
+                            value={utilisateurs_nom}
+                            onChange={handleChangeNom}
+                            placeholder="Nom"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Prénom
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={utilisateurs_prenom} 
-                                    onChange={handleChangePrenom} 
-                                    placeholder="Prénom" 
-                                    type="text" 
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampProfileModification 
+                            label="Prénom"
+                            value={utilisateurs_prenom}
+                            onChange={handleChangePrenom}
+                            placeholder="Prénom"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Adresse Email
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={utilisateurs_adresse_email} 
-                                    onChange={handleChangeAdresseEmail} 
-                                    placeholder="Adresse Email" 
-                                    type="email" 
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampProfileModification 
+                            label="Adresse Email"
+                            value={utilisateurs_adresse_email}
+                            onChange={handleChangeAdresseEmail}
+                            placeholder="Adresse Email"
+                            type="email"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Numéro de téléphone
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={utilisateurs_numero_de_telephone} 
-                                    onChange={handleChangeNumeroDeTelephone} 
-                                    placeholder="Numéro de téléphone" 
-                                    type="tel" 
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampProfileModification 
+                            label="Numéro de téléphone"
+                            value={utilisateurs_numero_de_telephone}
+                            onChange={handleChangeNumeroDeTelephone}
+                            placeholder="Numéro de téléphone"
+                            type="text"
+                        />
 
                         <button
                             type="submit"
