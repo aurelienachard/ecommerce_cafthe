@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import ChampPostal from '../components/champPostal'
 
 const PostalConfig = () => {
     const [adresses_postales_ligne1, set_adresses_postales_ligne1] = useState('')
@@ -105,80 +106,45 @@ const PostalConfig = () => {
                             </div>
                         )}
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Ligne adresse 1
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={adresses_postales_ligne1}
-                                    onChange={handleChangeAdressePostalesNomVoie}
-                                    placeholder="Ligne adresse 1"
-                                    type="text"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampPostal 
+                            label="Ligne adresse 1"
+                            value={adresses_postales_ligne1}
+                            onChange={handleChangeAdressePostalesNomVoie}
+                            placeholder="Ligne adresse 1"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Ligne adresse 2
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={adresses_postales_ligne2}
-                                    onChange={handleChangeAdressePostalesNomVoie}
-                                    placeholder="Ligne adresse 2"
-                                    type="text"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampPostal 
+                            label="Ligne adresse 2"
+                            value={adresses_postales_ligne2}
+                            onChange={handleChangeAdressePostalesNomVoie}
+                            placeholder="Ligne adresse 2"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Code postal
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={adresses_postales_code_postal}
-                                    onChange={handleChangeAdressePostalesCodePostal}
-                                    placeholder="Code postal"
-                                    type="text"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampPostal 
+                            label="Code postal"
+                            value={adresses_postales_code_postal}
+                            onChange={handleChangeAdressePostalesCodePostal}
+                            placeholder="Code postal"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Ville
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={adresses_postales_ville}
-                                    onChange={handleChangeAdressePostalesVille}
-                                    placeholder="Ville"
-                                    type="text"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampPostal 
+                            label="Ville"
+                            value={adresses_postales_ville}
+                            onChange={handleChangeAdressePostalesVille}
+                            placeholder="Ville"
+                            type="text"
+                        />
 
-                        <div>
-                            <label className="block text-[16px] font-medium text-gray-900">
-                                Pays
-                            </label>
-                            <div className="mt-[10px]">
-                                <input 
-                                    value={adresses_postales_pays}
-                                    onChange={handleChangeAdressePostalesPays}
-                                    placeholder="Pays"
-                                    type="text"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                />
-                            </div>
-                        </div>
+                        <ChampPostal 
+                            label="Pays"
+                            value={adresses_postales_pays}
+                            onChange={handleChangeAdressePostalesPays}
+                            placeholder="Pays"
+                            type="text"
+                        />
 
                         <button
                             type="submit"
