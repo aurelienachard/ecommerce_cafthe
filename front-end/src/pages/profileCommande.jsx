@@ -50,7 +50,7 @@ const ProfilCommande = () => {
                                                 <div className="max-sm:flex max-sm:justify-between max-sm:py-6 max-sm:first:pt-0 max-sm:last:pb-0">
                                                     <dt className="font-medium text-gray-900">Status</dt>
                                                     <dd className="sm:mt-1">
-                                                        <span className="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-sm font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
+                                                        <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-sm font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20">
                                                             {order.order_status}
                                                         </span>
                                                     </dd>

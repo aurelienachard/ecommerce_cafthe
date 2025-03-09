@@ -26,7 +26,7 @@ const Profile = () => {
             {/* Hero section avec le nom d'utilisateur */}
             <div className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-                    <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                    <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
                         Mon Profil
                     </h1>
                     <p className="mt-6 text-xl text-gray-500">
@@ -37,10 +37,10 @@ const Profile = () => {
 
             {/* Section des options du profil */}
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+                <div className="flex flex-wrap gap-6">
                     {/* Carte pour modifier le mot de passe */}
                     <Link to="/fortgetpwd" 
-                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 flex-1 basis-[calc(50%-12px)] min-w-[280px]">
                         <div>
                             <h3 className="text-lg font-medium text-gray-900">
                                 Modifier mon mot de passe
@@ -53,7 +53,7 @@ const Profile = () => {
 
                     {/* Carte pour modifier le profil */}
                     <Link to="/profileconfig"
-                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        className="bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 flex-1 basis-[calc(50%-12px)] min-w-[280px]">
                         <div>
                             <h3 className="text-lg font-medium text-gray-900">
                                 Modifier mon profil
@@ -66,7 +66,7 @@ const Profile = () => {
 
                     {/* Carte pour modifier l'adresse postale */}
                     <Link to="/postalconfig"
-                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 flex-1 basis-[calc(50%-12px)] min-w-[280px]">
                         <div>
                             <h3 className="text-lg font-medium text-gray-900">
                                 Modifier mon adresse postale
@@ -79,7 +79,7 @@ const Profile = () => {
 
                     {/* Carte pour voir les commandes */}
                     <Link to="/commande"
-                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200">
+                        className="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-emerald-500 rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 flex-1 basis-[calc(50%-12px)] min-w-[280px]">
                         <div>
                             <h3 className="text-lg font-medium text-gray-900">
                                 Mes commandes
