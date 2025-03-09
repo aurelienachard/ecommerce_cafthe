@@ -76,9 +76,9 @@ const Panier = () => {
         navigate('/connexion')
     }
 
-    const augmenterArticle = (id) => {
+    const augmenterArticle = (id, quantiteGramme) => {
         const updatedPanier = panier.map(item => {
-            if (item.id === id) {
+            if (item.id === id && item.quantiteGramme === quantiteGramme) {
                 item.quantite += 1
             }
             return item
@@ -87,9 +87,9 @@ const Panier = () => {
         localStorage.setItem("cart", JSON.stringify(updatedPanier))
     }
 
-    const diminuerArticle = (id) => {
+    const diminuerArticle = (id, quantiteGramme) => {
         const updatedPanier = panier.map(item => {
-            if (item.id === id && item.quantite > 1) {
+            if (item.id === id && item.quantiteGramme === quantiteGramme && item.quantite > 1) {
                 item.quantite -= 1
             }
             return item
@@ -150,7 +150,7 @@ const Panier = () => {
                                                                 <div className="flex items-center space-x-3">
                                                                     <button
                                                                         type="button"
-                                                                        onClick={() => diminuerArticle(item.id)}
+                                                                        onClick={() => diminuerArticle(item.id, item.quantiteGramme)}
                                                                         className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm border hover:bg-gray-50">
                                                                         -
                                                                     </button>
@@ -159,7 +159,7 @@ const Panier = () => {
 
                                                                     <button
                                                                         type="button"
-                                                                        onClick={() => augmenterArticle(item.id)}
+                                                                        onClick={() => augmenterArticle(item.id, item.quantiteGramme)}
                                                                         className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm border hover:bg-gray-50">
                                                                         +
                                                                     </button>
