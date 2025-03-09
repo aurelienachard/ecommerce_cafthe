@@ -109,7 +109,7 @@ const Panier = () => {
     const token = localStorage.getItem('token')
 
     return (
-        <div className="bg-white">
+        <div className="min-h-screen bg-white">
             <div className="mx-auto max-w-[672px] px-[16px] pt-[64px] pb-[96px] sm:px-[24px] lg:max-w-[1280px] lg:px-[32px]">   
                 <h1 className="text-[32px] font-bold text-gray-900 sm:text-4xl">Mon panier</h1>
 
@@ -124,7 +124,7 @@ const Panier = () => {
                                     <div className="flex-1">
                                         <div className="border-t border-b border-gray-200">
                                             {panier.map(item => 
-                                                <div key={item.id} className="flex py-6 sm:py-10">
+                                                <div key={item.id} className="flex py-[24px] sm:py-[40px]">
                                                     <div className="shrink-0">
                                                         <img src="./image.jpg"
                                                             alt={item.nom}
@@ -151,7 +151,7 @@ const Panier = () => {
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => diminuerArticle(item.id)}
-                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm border hover:bg-gray-50">
                                                                         -
                                                                     </button>
 
@@ -160,7 +160,7 @@ const Panier = () => {
                                                                     <button
                                                                         type="button"
                                                                         onClick={() => augmenterArticle(item.id)}
-                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                                                        className="rounded-md bg-white px-2 py-1 text-sm font-semibold text-gray-900 shadow-sm border hover:bg-gray-50">
                                                                         +
                                                                     </button>
                                                                 </div>
@@ -203,20 +203,20 @@ const Panier = () => {
                                                         <button 
                                                             type="submit" 
                                                             onClick={handleOnlinePayment}
-                                                            className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                            className="w-full rounded-md border border-transparent bg-emerald-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                                                                 Payer en ligne
                                                         </button>
 
                                                         <button 
                                                             type="submit" 
                                                             onClick={handleStorePayment}
-                                                            className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                            className="w-full rounded-md border border-transparent bg-emerald-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                                                                 Payer en magasin
                                                         </button>
 
                                                         <button 
                                                             onClick={redirectPage}
-                                                            className="w-full text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                            className="w-full text-sm font-medium text-emerald-600 hover:text-emerald-500">
                                                                 Retourner vers les courses
                                                         </button>
                                                 </div>
@@ -229,12 +229,12 @@ const Panier = () => {
 
                                                     <button
                                                         onClick={redirectConnexion}
-                                                        className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
+                                                        className="w-full rounded-md border border-transparent bg-emerald-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                                                         Se connecter
                                                     </button>
                                                     <button
                                                         onClick={redirectPage}
-                                                        className="w-full text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                        className="w-full text-sm font-medium text-emerald-600 hover:text-emerald-500">
                                                         Retourner vers les courses
                                                     </button>
                                                 </div>
