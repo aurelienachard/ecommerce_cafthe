@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import axios from 'axios'
-import ChampInscription from '../components/ChampInscription'
+import ChampInscription from '../components/champInscription'
 
 const Inscription = () => {
     const [utilisateurs_nom, set_utilisateurs_nom] = useState('')
