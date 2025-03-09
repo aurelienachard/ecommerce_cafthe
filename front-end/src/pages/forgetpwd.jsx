@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
+import ChampForgetPwd from '../components/champForgetPwd'
 
 const Fortgetpwd = () => {
     const [utilisateurs_adresse_email, set_utilisateurs_adresse_email] = useState('')
@@ -59,63 +60,20 @@ const Fortgetpwd = () => {
             <div className="mt-[42px] sm:mx-auto sm:w-full sm:max-w-[480px]">
                 <div className="bg-white px-[24px] py-[48px] shadow-sm sm:rounded-lg sm:px-[48px]">
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div>
-                            <label>
-                                Adresse Email
-                            </label>
-
-                            <div className="mt-[10px]">
-                                <input
-                                    onChange={handleChangeEmail}
-                                    value={utilisateurs_adresse_email}
-                                    placeholder="Adresse Email"
-                                    type="mail"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label>
-                                Ancien Mot de passe
-                            </label>
-
-                            <div className="mt-[10px]">
-                                <input
-                                    onChange={handleChangeOldPassword}
-                                    value={oldPassword}
-                                    placeholder="Ancien Mot de passe"
-                                    type="password"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label>
-                                Nouveau mot de passe
-                            </label>
-
-                            <div className="mt-[10px]">
-                                <input
-                                    onChange={handleChangeNewPassword}
-                                    value={newPassword}
-                                    placeholder="Nouveau mot de passe"
-                                    type="password"
-                                    className="text-[16px] outline-1 -outline-offset-1 outline-gray-300 block w-full rounded-md px-[12px] py-[16px] bg-white text-base text-gray-900 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-[14px]"
-                                    required
-                                />
-                            </div>
-                        </div>
+                        <ChampForgetPwd 
+                            utilisateurs_adresse_email={utilisateurs_adresse_email}
+                            oldPassword={oldPassword}
+                            newPassword={newPassword}
+                            handleChangeEmail={handleChangeEmail}
+                            handleChangeOldPassword={handleChangeOldPassword}
+                            handleChangeNewPassword={handleChangeNewPassword}
+                            message={message}
+                        />
 
                         <button 
                             className="flex w-full justify-center rounded-md bg-emerald-600 px-[16px] py-[12px] font-semibold text-white shadow-xs hover:bg-emerald-500">
                             Confirmation
                         </button>
-
-                        <p>{message}</p>
                     </form>
                 </div>
             </div>
