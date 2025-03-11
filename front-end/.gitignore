@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+/src/components/recherche.test.jsx
+/src/components/cartitems.test.jsx
+/src/components/filtre.test.jsx
+/src/components/footer.test.jsx
+/src/components/header.test.jsx
+/src/components/produit.test.jsx
