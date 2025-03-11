@@ -24,3 +24,4 @@ TestResults.xml
 compose.yaml
 Dockerfile
 README.Docker.md
+/end2end
