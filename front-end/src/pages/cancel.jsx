@@ -31,7 +31,7 @@ const Cancel = () => {
 
                     <button 
                         onClick={redirectPage} 
-                        className="mt-6 w-full bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium"
+                        className="mt-6 w-full bg-emerald-500 hover:bg-emerald-700 text-white py-3 px-6 rounded-lg font-medium"
                     >
                         Retourner aux produits
                     </button>
