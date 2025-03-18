@@ -50,6 +50,8 @@ const Footer = () => {
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <p className="text-[16px] text-gray-200">&copy; 2025 Cafthe. Tous droits réservés.</p>
                         <div className="flex items-center space-x-4 text-[16px] text-gray-200">
+                            <Link className="hover:text-white" to="/RGPD">Politique de confidentialité</Link>
+                            <span className="text-gray-200">|</span>
                             <Link className="hover:text-white" to="/CGU">Conditions Générales Utilisation</Link>
                             <span className="text-gray-200">|</span>
                             <Link className="hover:text-white" to="/CGV">Conditions Générales de Vente</Link>

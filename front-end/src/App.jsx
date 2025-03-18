@@ -15,6 +15,7 @@ import ProfilCommande from './pages/profileCommande'
 import Success from './pages/success'
 import Cancel from './pages/cancel'
 import StorePayement from './pages/storePayment'
+import RGPD from './pages/rpg'
 
 import Header from './components/header'
 import Footer from './components/footer'
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
           <Route path="/successStore" element={<StorePayement />} />
+          <Route path="/RGPD" element={<RGPD />} />
         </Routes>
 
         <Footer />
