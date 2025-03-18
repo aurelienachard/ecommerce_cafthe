@@ -1,4 +1,10 @@
+import { useEffect } from "react"
+
 const Success = () => {
+    useEffect(() => {
+        localStorage.removeItem('cart');
+    }, []);
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-center px-6 py-12">
             <div className="max-w-md w-full bg-white shadow-xl rounded-2xl p-8">
