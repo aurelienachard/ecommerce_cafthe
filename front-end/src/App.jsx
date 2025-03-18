@@ -15,7 +15,7 @@ import ProfilCommande from './pages/profileCommande'
 import Success from './pages/success'
 import Cancel from './pages/cancel'
 import StorePayement from './pages/storePayment'
-import RGPD from './pages/rpg'
+import RGPD from './pages/rgpd'
 
 import Header from './components/header'
 import Footer from './components/footer'
