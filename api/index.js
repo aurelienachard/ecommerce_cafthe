@@ -6,6 +6,7 @@ const cors = require('cors')
 const mysql = require('mysql2')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const router = express.Router()
 
 // Définir le middleware raw pour /webhook AVANT les autres middlewares
 app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {    
@@ -63,7 +64,8 @@ app.post('/webhook', express.raw({type: 'application/json'}), (request, response
 
 app.use(express.json())
 app.use(cors())
-// app.use(express.static('dist'))
+app.use(express.static('dist'))
+app.use('/api', router)
 
 // assigner les valeurs d'environnements a des variables
 
@@ -83,12 +85,12 @@ db.connect((error) => {
   if (error) {
     console.error('Erreur de connexion Mysql : ', error)
   } else {
-    console.log('connected')
+    console.log('la connexion à la base de données est ok')
   }
 })
 
 // route pour la creation d'une session stripe
-app.post('/create-checkout-session', (request, response) => {
+router.post('/create-checkout-session', (request, response) => {
   const cart = request.body.cart
   const token = request.headers['authorization'].split(' ')[1]
 
@@ -201,7 +203,7 @@ app.post('/create-checkout-session', (request, response) => {
 })
 
 // route pour le paiement en magasin
-app.post('/create-store-order', (request, response) => {
+router.post('/create-store-order', (request, response) => {
   const cart = request.body.cart
   const token = request.headers['authorization'].split(' ')[1] // recuperation du token
 
@@ -239,7 +241,7 @@ app.post('/create-store-order', (request, response) => {
 })
 
 // modification du profil
-app.put('/utilisateurs/modificationProfil', (request, response) => {
+router.put('/utilisateurs/modificationProfil', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1] // recuperation du token
   const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_numero_de_telephone} = request.body
 
@@ -271,8 +273,7 @@ app.put('/utilisateurs/modificationProfil', (request, response) => {
 })
 
 // modification de ladresse
-
-app.put('/utilisateurs/modificationAdress', (request, response) => {
+router.put('/utilisateurs/modificationAdress', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1] // recuperation du token
   const {adresses_postales_ligne1, adresses_postales_ligne2, adresses_postales_code_postal, adresses_postales_ville, adresses_postales_pays} = request.body
 
@@ -299,7 +300,7 @@ app.put('/utilisateurs/modificationAdress', (request, response) => {
 })
 
 // route pour récupérer les informations de l'utilisateur en fonction du token
-app.get('/utilisateurs/profil', (request, response) => {
+router.get('/utilisateurs/profil', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1]
 
   if (!token) {
@@ -327,7 +328,7 @@ app.get('/utilisateurs/profil', (request, response) => {
 })
 
 // route pour recuperer l'adresse postal de l'utilisateur en fonction du token
-app.get('/utilisateurs/adresse', (request, response) => {
+router.get('/utilisateurs/adresse', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1]
 
   if (!token) {
@@ -355,8 +356,7 @@ app.get('/utilisateurs/adresse', (request, response) => {
 })
 
 // connexion utilisateurs
-
-app.post('/utilisateurs/connexion', (request, response) => {
+router.post('/utilisateurs/connexion', (request, response) => {
   const { utilisateurs_adresse_email, utilisateurs_mot_de_passe } = request.body
 
   db.query('select * from utilisateurs where utilisateurs_adresse_email = ?', utilisateurs_adresse_email, (error, result) => {
@@ -390,8 +390,7 @@ app.post('/utilisateurs/connexion', (request, response) => {
 })
 
 // route pour recuperer les produits
-
-app.get('/orders', (request, response) => {
+router.get('/orders', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1]
 
   if (!token) {
@@ -416,8 +415,7 @@ app.get('/orders', (request, response) => {
 })
 
 // afficher tous les produits
-
-app.get('/produits', (request, response) => {
+router.get('/produits', (request, response) => {
   db.query('select * from produit', (error, result) => {
     if (error) {
       console.log(error)
@@ -428,8 +426,7 @@ app.get('/produits', (request, response) => {
 })
 
 // afficher les produits en fonction de son id 
-
-app.get('/produits/:id', (request, response) => {
+router.get('/produits/:id', (request, response) => {
   const id = request.params.id
   db.query('select * from produit where produit_id = ?', id, (error, result) => {
     if (error) {
@@ -441,8 +438,7 @@ app.get('/produits/:id', (request, response) => {
 })
 
 // afficher les utilisateurs
-
-app.get('/utilisateurs', (request, response) => {
+router.get('/utilisateurs', (request, response) => {
   db.query('select * from utilisateurs', (error, result) => {
     if (error) {
       console.log(error)
@@ -453,8 +449,7 @@ app.get('/utilisateurs', (request, response) => {
 })
 
 // afficher les utilisateurs en fonction de son id
-
-app.get('/utilisateurs/:id', (request, response) => {
+router.get('/utilisateurs/:id', (request, response) => {
   const id = request.params.id
   db.query('select * from utilisateurs where utilisateurs_id = ?', id, (error, result) => {
     if (error) {
@@ -466,8 +461,7 @@ app.get('/utilisateurs/:id', (request, response) => {
 })
 
 // creation d'un nouvelle utilisateur
-
-app.post('/utilisateurs/inscription', (request, response) => {
+router.post('/utilisateurs/inscription', (request, response) => {
   const {utilisateurs_nom, utilisateurs_prenom, utilisateurs_adresse_email, utilisateurs_mot_de_passe, utilisateurs_numero_de_telephone} = request.body
   const saltRound = 12
 
@@ -493,8 +487,7 @@ app.post('/utilisateurs/inscription', (request, response) => {
 })
 
 // reinitialisation du mot de passe avec le token
-
-app.put('/utilisateurs/newpassword', (request, response) => {
+router.put('/utilisateurs/newpassword', (request, response) => {
   const token = request.headers['authorization'].split(' ')[1] // recuperation du token
   /*
         en detail:
@@ -574,8 +567,7 @@ app.put('/utilisateurs/newpassword', (request, response) => {
 })
 
 // afficher les adresses postals
-
-app.get('/adresse', (request, response) => {
+router.get('/adresse', (request, response) => {
   db.query('select * from adresses_postales', (error, result) => {
     if (error) {
       console.log(error)
@@ -586,8 +578,7 @@ app.get('/adresse', (request, response) => {
 })
 
 // afficher les adresses postals en fonction de son id
-
-app.get('/adresse/:id', (request, response) => {
+router.get('/adresse/:id', (request, response) => {
   const id = request.params.id
   db.query('select * from adresses_postales where adresses_postales_id = ?', id, (error, result) => {
     if (error) {
@@ -599,7 +590,6 @@ app.get('/adresse/:id', (request, response) => {
 })
 
 // connexion a l'api
-
 app.get('/', (request, response) => {
   response.send('<h1>Hello world</h1>')
 })
