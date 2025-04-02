@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /profile
+Disallow: /panier
+Disallow: /fortgetpwd
+Disallow: /postalconfig
+Disallow: /profileconfig
+Disallow: /commande
+Disallow: /success
+Disallow: /cancel
+Disallow: /successStore
