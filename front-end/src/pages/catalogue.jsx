@@ -12,7 +12,7 @@ const Catalogue = () => {
 
     // liaison entre le serveur et l'api
     useEffect(() => {
-        axios.get("http://localhost:3001/produits")
+        axios.get(`${import.meta.env.VITE_DOMAIN_API}/produits`)
         .then(response => {
             setData(response.data)
         })

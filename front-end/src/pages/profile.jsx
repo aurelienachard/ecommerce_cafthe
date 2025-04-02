@@ -7,7 +7,7 @@ const Profile = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        axios.get('http://localhost:3001/utilisateurs/profil', {
+        axios.get(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/profil`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

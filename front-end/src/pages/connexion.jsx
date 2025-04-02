@@ -27,7 +27,7 @@ const Connexion = () => {
             utilisateurs_mot_de_passe
         }
         
-        axios.post('http://localhost:3001/utilisateurs/connexion', data, {
+        axios.post(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/connexion`, data, {
             headers: {
                 'Content-type' : 'application/json'
             }
@@ -35,7 +35,6 @@ const Connexion = () => {
         .then((response) => {
             localStorage.setItem('token', response.data.token)
             navigate('/profile')
-            window.location.reload()
         })
         .catch((error) => {
             setMessage('Un problème est survenu lors de la connexion')

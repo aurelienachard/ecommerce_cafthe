@@ -15,7 +15,7 @@ const PostalConfig = () => {
         const token = localStorage.getItem('token')
         // verification du token
         if (token) {
-            axios.get('http://localhost:3001/utilisateurs/adresse', {
+            axios.get(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/adresse`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -51,7 +51,7 @@ const PostalConfig = () => {
             adresses_postales_pays,
         }
 
-        axios.put('http://localhost:3001/utilisateurs/modificationAdress', data, {
+        axios.put(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/modificationAdress`, data, {
             headers: {
                 'Authorization' : `Bearer ${token}`
             }

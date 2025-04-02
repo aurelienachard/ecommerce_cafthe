@@ -35,7 +35,7 @@ const Inscription = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        axios.post('http://localhost:3001/utilisateurs/inscription', {
+        axios.post(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/inscription`, {
             utilisateurs_nom,
             utilisateurs_prenom,
             utilisateurs_adresse_email,

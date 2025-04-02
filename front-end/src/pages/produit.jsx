@@ -9,7 +9,7 @@ const Produit = () => {
    const {produit_id} = useParams()
    
     useEffect(() => {
-        axios.get(`http://localhost:3001/produits/${produit_id}`)
+        axios.get(`${import.meta.env.VITE_DOMAIN_API}/produits/${produit_id}`)
         .then(response => {
             setData(response.data)
         })

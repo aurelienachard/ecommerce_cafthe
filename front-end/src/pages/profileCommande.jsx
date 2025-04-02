@@ -7,7 +7,7 @@ const ProfilCommande = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
-        axios.get('http://localhost:3001/orders', {
+        axios.get(`${import.meta.env.VITE_DOMAIN_API}/orders`, {
             headers: {
                 'Authorization': `Bearer ${token}`  
             }

@@ -20,7 +20,7 @@ const Panier = () => {
         const cart = panier // on recupere les donnees du panier et on stocke dans une variable
         const token = localStorage.getItem('token')
 
-        axios.post('http://localhost:3001/create-checkout-session', {cart}, {
+        axios.post(`${import.meta.env.VITE_DOMAIN_API}/create-checkout-session`, {cart}, {
             headers: {
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${token}` // ajout du token dans le header
@@ -43,7 +43,7 @@ const Panier = () => {
         const cart = panier
         const token = localStorage.getItem('token')
 
-        axios.post('http://localhost:3001/create-store-order', {cart}, {
+        axios.post(`${import.meta.env.VITE_DOMAIN_API}/create-store-order`, {cart}, {
             headers: {
                 'Content-type' : 'application/json',
                 'Authorization' : `Bearer ${token}`

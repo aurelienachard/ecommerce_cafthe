@@ -14,7 +14,7 @@ const ProfileConfig = () => {
         const token = localStorage.getItem('token')
         // verification du token
         if (token) {
-            axios.get('http://localhost:3001/utilisateurs/profil', {
+            axios.get(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/profil`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -59,7 +59,7 @@ const ProfileConfig = () => {
             utilisateurs_numero_de_telephone,
         }
 
-        axios.put('http://localhost:3001/utilisateurs/modificationProfil', data, {
+        axios.put(`${import.meta.env.VITE_DOMAIN_API}/utilisateurs/modificationProfil`, data, {
             headers: {
                 'Authorization' : `Bearer ${token}`
             }
