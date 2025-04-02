@@ -14,6 +14,8 @@ CafThé s’engage à offrir à ses clients une sélection de produits uniques, 
 
 ## Présentation du projet
 
+![image_front_end](./img/front.png)
+
 Le projet se décompose en deux parties :
 
 - `Site e-commerce` : Il permet aux clients de consulter les produits et passer des commandes en ligne.
