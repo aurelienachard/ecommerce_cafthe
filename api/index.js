@@ -171,8 +171,8 @@ router.post('/create-checkout-session', (request, response) => {
             }
           }
         ],
-        success_url: 'http://localhost:5173/success', // redirection une fois le paiement reussi
-        cancel_url: 'http://localhost:5173/cancel' // redirection une fois le paiement echoue   
+        success_url: `${process.env.REDIRECTION_PAIEMENT}/success`, // redirection une fois le paiement reussi
+        cancel_url: `${process.env.REDIRECTION_PAIEMENT}/cancel` // redirection une fois le paiement echoue   
       })
         .then(session => {
           // on permet de sauvegarder la commande dans la base de donnees                
