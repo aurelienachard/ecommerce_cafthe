@@ -1,0 +1,32 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+
+/src/components/recherche.test.jsx
+/src/components/cartitems.test.jsx
+/src/components/filtre.test.jsx
+/src/components/footer.test.jsx
+/src/components/header.test.jsx
+/src/components/produit.test.jsx
